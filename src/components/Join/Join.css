@@ -3,6 +3,7 @@ body {
   font-family: "Roboto", sans-serif;
   padding: 0;
   margin: 0;
+  background-color: #e0e5ec;
 }
 
 #root {
@@ -17,51 +18,66 @@ body {
   display: flex;
   justify-content: center;
   text-align: center;
-  height: 100vh;
+  height: 92vh;
   align-items: center;
   background-color: #e0e5ec;
 }
 
 .joinInnerContainer {
-  width: 20%;
+  width: 430px;
+  padding: 40px 35px 75px 35px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
 .joinInput {
-  border-radius: 0;
-  padding: 15px 20px;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 18px;
+  color: #00473e;
+  padding: 20px 10px 20px 20px;
   width: 100%;
+  margin-bottom: 30px;
+  border-radius: 25px;
+  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
 }
 
 .heading {
-  color: white;
+  color: #00473e;
   font-size: 2.5em;
   padding-bottom: 10px;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #001f3f;
 }
 
 .button {
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: #2979ff;
-  padding: 20px;
+  background: #faae2b;
+  padding: 15px 20px;
   border-radius: 5px;
   display: inline-block;
   border: none;
-  width: 100%;
+  width: 70%;
+  box-shadow: 11px 11px 11px #d59425, -3px -3px 22px #ffc831;
 }
 
 .mt-20 {
   margin-top: 20px;
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media (max-width: 500px) {
   .joinOuterContainer {
     height: 100%;
+    align-items: start;
+    margin-top: 2rem;
   }
 
   .joinInnerContainer {
     width: 90%;
+    padding: 10px 10px 30px 10px;
   }
 }
 
