@@ -1,14 +1,20 @@
 .form {
   display: flex;
-  border-top: 2px solid #d3d3d3;
+  padding-top: 20px;
+  box-shadow: 0px 0px 20px #cbced1, -7px -7px 20px #ffffff;
 }
 
 .input {
   border: none;
-  border-radius: 0;
-  padding: 5%;
-  width: 80%;
-  font-size: 1.2em;
+  border-radius: 10px;
+  padding: 15px 20px;
+  width: 70%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 1rem;
+  font-size: 1.1em;
+  background-color: #ecf0f3;
+  box-shadow: inset 8px 8px 13px #c9cccf, inset -8px -8px 13px #ffffff;
 }
 
 input:focus,
@@ -19,11 +25,20 @@ select:focus {
 
 .sendButton {
   color: #fff !important;
+  text-align: center;
   text-transform: uppercase;
   text-decoration: none;
   background: #faae2b;
-  padding: 20px;
+  padding: 5px 5px;
   display: inline-block;
   border: none;
-  width: 20%;
+  font-size: 1.1rem;
+  width: 17.5%;
+  margin-right: 2.5%;
+  margin-bottom: 1rem;
+  box-shadow: 13px 13px 20px #cbced1, -7px -7px 20px #ffffff;
+}
+
+.dividingLine {
+  border-top: solid 2px #777777;
 }

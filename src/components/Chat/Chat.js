@@ -60,14 +60,13 @@ const Chat = ({ location }) => {
   return (
     <>
       <InfoBar room={room} />
-      <Grid container spacing={3}>
+      <Grid container>
         <Grid item xs={12} sm={12} md={7}>
           <div className="leftContainer">
             <TextContainer users={users} />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={5}>
-          <h2>Chat</h2>
           <div className="rightContainer">
             <Messages messages={messages} name={name} />
             <Input

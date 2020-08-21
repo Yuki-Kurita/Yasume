@@ -10,18 +10,18 @@ h2 {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #e0e5ec;
 }
 
 .rightContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #ffffff;
+  background: #ecf0f3;
   border-radius: 20px;
   height: 100%;
   width: 90%;
-  margin-top: 1em;
+  margin-top: 3em;
   margin-left: auto;
   margin-right: auto;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
