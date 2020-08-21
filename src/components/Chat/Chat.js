@@ -6,6 +6,7 @@ import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
 import TextContainer from "../TextContainer/TextContainer";
 import "./Chat.css";
+import Grid from "@material-ui/core/Grid";
 
 let socket;
 
@@ -59,19 +60,23 @@ const Chat = ({ location }) => {
   return (
     <>
       <InfoBar room={room} />
-      <div className="outerContainer">
-        <div className="leftContainer">
-          <TextContainer users={users} />
-        </div>
-        <div className="rightContainer">
-          <Messages messages={messages} name={name} />
-          <Input
-            message={message}
-            setMessage={setMessage}
-            sendMessage={sendMessage}
-          />
-        </div>
-      </div>
+      <Grid container>
+        <Grid item xs={12} sm={12} md={7}>
+          <div className="leftContainer">
+            <TextContainer users={users} />
+          </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={5}>
+          <div className="rightContainer">
+            <Messages messages={messages} name={name} />
+            <Input
+              message={message}
+              setMessage={setMessage}
+              sendMessage={sendMessage}
+            />
+          </div>
+        </Grid>
+      </Grid>
     </>
   );
 };

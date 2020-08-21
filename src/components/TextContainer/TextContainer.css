@@ -1,8 +1,7 @@
 .textContainer {
   display: flex;
   flex-direction: column;
-  margin-left: 100px;
-  color: white;
+  color: #00473e;
   height: 60%;
   justify-content: space-between;
 }
@@ -10,7 +9,6 @@
 .activeContainer {
   display: flex;
   align-items: center;
-  margin-bottom: 50%;
 }
 
 .activeItem {
@@ -22,6 +20,15 @@
   padding-left: 10px;
 }
 
-.textContainer h1 {
-  margin-bottom: 0px;
+.textContainer h2 {
+  text-align: center;
+}
+
+.loginUserContainer {
+  border-radius: 40px;
+  background: #ecf0f3;
+  width: 70%;
+  margin: 3rem auto;
+  padding: 20px 30px;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }

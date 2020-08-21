@@ -1,10 +1,12 @@
 .messageBox {
-  background: #f3f3f3;
+  background: #ecf0f3;
   border-radius: 20px;
-  padding: 5px 20px;
+  padding: 2px 15px;
   color: white;
   display: inline-block;
+  font-size: 0.85rem;
   max-width: 80%;
+  margin-bottom: 0.4rem;
 }
 
 .messageText {
@@ -32,6 +34,7 @@
   font-family: Helvetica;
   color: #828282;
   letter-spacing: 0.3px;
+  margin-right: 1rem;
 }
 
 .pl-10 {
@@ -59,9 +62,11 @@
 }
 
 .backgroundBlue {
-  background: #2979ff;
+  background: #01a791;
+  box-shadow: 13px 13px 20px #cbced1, -7px -7px 20px #ffffff;
 }
 
 .backgroundLight {
-  background: #f3f3f3;
+  background: #f5f8f9;
+  box-shadow: 13px 13px 20px #cbced1, -7px -7px 20px #ffffff;
 }
