@@ -28,6 +28,7 @@ select:focus {
   text-align: center;
   text-transform: uppercase;
   text-decoration: none;
+  border-radius: 10px;
   background: #faae2b;
   padding: 5px 5px;
   display: inline-block;
@@ -41,4 +42,14 @@ select:focus {
 
 .dividingLine {
   border-top: solid 2px #777777;
+}
+
+@media screen and (max-width: 480px) {
+  .input {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+  .sendButton {
+    font-size: 0.8rem;
+  }
 }
