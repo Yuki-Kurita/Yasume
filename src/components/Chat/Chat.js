@@ -57,18 +57,22 @@ const Chat = ({ location }) => {
   };
 
   return (
-    <div className="outerContainer">
-      <div className="container">
-        <InfoBar room={room} />
-        <Messages messages={messages} name={name} />
-        <Input
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-        />
+    <>
+      <InfoBar room={room} />
+      <div className="outerContainer">
+        <div className="leftContainer">
+          <TextContainer users={users} />
+        </div>
+        <div className="rightContainer">
+          <Messages messages={messages} name={name} />
+          <Input
+            message={message}
+            setMessage={setMessage}
+            sendMessage={sendMessage}
+          />
+        </div>
       </div>
-      <TextContainer users={users} />
-    </div>
+    </>
   );
 };
 
