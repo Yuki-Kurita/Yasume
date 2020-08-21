@@ -8,19 +8,21 @@ const TextContainer = ({ users }) => (
   <div className="textContainer">
     {users ? (
       <div>
-        <h1>People currently chatting:</h1>
-        <div className="activeContainer">
-          <h2>
+        <div className="loginUserContainer">
+          <h3>
             <span role="img" aria-label="emoji">
-              💬
+              👤
             </span>
+            入室者
+          </h3>
+          <div className="activeContainer">
             {users.map(({ name }) => (
               <div key={name} className="activeItem">
                 {name}
                 <img alt="Online Icon" src={onlineIcon} />
               </div>
             ))}
-          </h2>
+          </div>
         </div>
       </div>
     ) : null}
