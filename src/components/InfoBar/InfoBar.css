@@ -2,10 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #2979ff;
+  background: #00473e;
   border-radius: 4px 4px 0 0;
   height: 60px;
   width: 100%;
+  position: relative;
+  box-shadow: 4px 4px 40px #003c35, -8px -8px 16px #005247;
 }
 
 .leftInnerContainer {
