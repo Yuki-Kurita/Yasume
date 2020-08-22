@@ -5,6 +5,7 @@ import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
 import TextContainer from "../TextContainer/TextContainer";
+import Timer from "../Timer/Timer";
 import "./Chat.css";
 import Grid from "@material-ui/core/Grid";
 
@@ -16,6 +17,8 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState("");
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const [second, setSecond] = useState(0);
+  const [timerId, setTimerId] = useState("");
 
   const ENDPOINT = "localhost:5000";
 
@@ -50,6 +53,19 @@ const Chat = ({ location }) => {
     });
   }, [messages]);
 
+  useEffect(() => {
+    // -秒になったら終了
+    if (second === 0) {
+      clearInterval(timerId);
+      setSecond(0);
+    }
+    // server側にタイマーの設定を送信
+    socket.emit("sendTimer", { second: second });
+    socket.on("timer", (timer) => {
+      setSecond(timer.second);
+    });
+  }, [second, timerId]);
+
   const sendMessage = (event) => {
     event.preventDefault();
     if (message) {
@@ -64,6 +80,12 @@ const Chat = ({ location }) => {
         <Grid item xs={12} sm={12} md={7}>
           <div className="leftContainer">
             <TextContainer users={users} />
+            <Timer
+              second={second}
+              setSecond={setSecond}
+              timerId={timerId}
+              setTimerId={setTimerId}
+            />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={5}>

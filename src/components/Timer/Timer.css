@@ -1,0 +1,9 @@
+.timerContainer {
+  border-radius: 40px;
+  color: #00473e;
+  background: #ecf0f3;
+  width: 70%;
+  margin: 3rem auto;
+  padding: 20px 30px;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
