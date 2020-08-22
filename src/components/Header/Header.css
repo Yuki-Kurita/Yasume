@@ -1,22 +1,59 @@
 .header {
-  height: 8vh;
-  background: #e0e5ec;
+  background: rgb(7, 111, 47);
+  background: linear-gradient(
+    45deg,
+    rgba(7, 111, 47, 1) 0%,
+    rgba(44, 172, 93, 1) 49%,
+    rgba(140, 232, 175, 1) 100%
+  );
+  box-shadow: 8px 8px 20px #25924f;
 }
 
 .appLogo {
   font-family: "Roboto", sans-serif;
-  color: #e0e5ec;
+  color: #fff;
   padding-top: 1rem;
-  text-align: center;
-  text-shadow: 4px 4px 3px #bebebe, -3px -3px 5px #ffffff;
-  font-size: 3rem;
-  letter-spacing: 1rem;
-  text-indent: 0.8em;
+  text-shadow: 4px 4px 3px #25924f, -3px -3px 5px #33c66b;
+  font-size: 2.2rem;
+  /* letter-spacing: 1rem; */
+  text-indent: 1em;
   font-weight: 900;
+  padding: 20px 10px 30px;
+}
+
+.header .message {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px 10px 5px;
+}
+
+.header .subMessage {
+  color: #fff;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 10px 20px 30px;
+}
+
+.headerImageContainer {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.headerImage {
+  width: 50%;
 }
 
 @media (max-width: 500px) {
   .appLogo {
+    font-size: 1.5rem;
+  }
+
+  .header .message {
     font-size: 2rem;
+  }
+  .header .subMessage {
+    font-size: 1rem;
   }
 }

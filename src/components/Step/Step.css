@@ -1,0 +1,22 @@
+.step {
+  color: #00473e;
+}
+
+.stepDetail {
+  display: flex;
+  align-items: center;
+}
+
+.step h3 {
+  text-indent: 3rem;
+}
+
+.stepImage {
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 40%;
+}
+
+.stepExplain {
+  padding-right: 20px;
+}

@@ -1,9 +1,17 @@
 import React from "react";
 import "./Header.css";
+import coffeeBreakImage from "../../icons/coffee_break.svg";
 
 const Header = () => (
   <div className="header">
     <div className="appLogo">Yasume</div>
+    <div className="message">リモートワークでもしっかりと休憩を</div>
+    <div className="subMessage">
+      チームで活用する休憩時間管理に特化したツール
+    </div>
+    <div className="headerImageContainer">
+      <img className="headerImage" src={coffeeBreakImage} alt="break_image" />
+    </div>
   </div>
 );
 

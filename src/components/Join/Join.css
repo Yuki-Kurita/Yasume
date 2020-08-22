@@ -24,7 +24,6 @@ body {
   text-align: center;
   height: 92vh;
   align-items: center;
-  background-color: #e0e5ec;
 }
 
 .joinInnerContainer {
@@ -87,7 +86,24 @@ body {
   vertical-align: middle;
 }
 
-@media (max-width: 500px) {
+.stepContainer {
+  margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.step {
+  margin-bottom: 3rem;
+  width: 80%;
+  padding: 20px 0 50px;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+@media (max-width: 600px) {
   .joinOuterContainer {
     height: 100%;
     align-items: start;

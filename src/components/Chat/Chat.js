@@ -48,7 +48,7 @@ const Chat = ({ location }) => {
       socket.emit("disconnect");
       socket.off();
     };
-  }, [ENDPOINT, location.search]);
+  }, [ENDPOINT, location.search, history]);
 
   // mount時とmessagesに変化があった時のみ実行
   useEffect(() => {
