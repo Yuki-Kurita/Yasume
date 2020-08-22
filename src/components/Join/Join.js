@@ -11,8 +11,6 @@ const Join = () => {
   const [errorNameMessage, setErrorNameMessage] = useState("");
   const [errorRoomMessage, setErrorRoomMessage] = useState("");
 
-  let errorQueryMessage = null;
-
   const filterName = (e) => {
     if (e.target.value.length <= 10) {
       setErrorNameMessage("");

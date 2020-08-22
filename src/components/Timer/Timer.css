@@ -8,7 +8,57 @@
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
+.timerDisplay {
+  color: #00473e;
+  text-align: center;
+  font-size: 2rem;
+  padding: 10px 20px 20px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-shadow: 4px 4px 10px #43617e;
+}
+
 .timerContainer h3 {
   margin-top: 0.3rem;
   margin-bottom: 1rem;
+}
+
+.timerButton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.timerContainer button {
+  color: #00473e;
+  font-weight: 700;
+  width: 50px;
+  height: 50px;
+  border-radius: 20px;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  text-align: center;
+  border-width: 0px;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+.startButton {
+  color: #0bccbc;
+}
+
+.stopButton {
+  color: #f05f46;
+}
+
+@media screen and (max-width: 960px) {
+  .timerContainer {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .timerDisplay {
+    font-size: 1.5rem;
+  }
 }

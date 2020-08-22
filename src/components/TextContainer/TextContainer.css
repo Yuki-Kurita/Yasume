@@ -9,6 +9,7 @@
   color: #00473e;
   height: 60%;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .activeContainer {
