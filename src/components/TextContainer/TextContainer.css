@@ -1,9 +1,14 @@
+.textContainer h3 {
+  margin-top: 0.3rem;
+  margin-bottom: 1rem;
+}
+
 .textContainer {
   display: flex;
   flex-direction: column;
   color: #00473e;
   height: 60%;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .activeContainer {
@@ -14,6 +19,10 @@
 .activeItem {
   display: flex;
   align-items: center;
+  margin-right: 2rem;
+  padding: 10px 20px;
+  border-radius: 40px;
+  box-shadow: inset 8px 8px 13px #c9cccf, inset -8px -8px 13px #ffffff;
 }
 
 .activeContainer img {
