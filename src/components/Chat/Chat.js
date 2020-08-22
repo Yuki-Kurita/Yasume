@@ -8,6 +8,7 @@ import TextContainer from "../TextContainer/TextContainer";
 import Timer from "../Timer/Timer";
 import "./Chat.css";
 import Grid from "@material-ui/core/Grid";
+import useReactRouter from "use-react-router";
 
 let socket;
 
@@ -19,6 +20,7 @@ const Chat = ({ location }) => {
   const [messages, setMessages] = useState([]);
   const [second, setSecond] = useState(0);
   const [timerId, setTimerId] = useState("");
+  const { history } = useReactRouter();
 
   const ENDPOINT = "localhost:5000";
 
@@ -26,9 +28,15 @@ const Chat = ({ location }) => {
     const { name, room } = queryString.parse(location.search);
 
     socket = io(ENDPOINT);
-
-    setName(name);
-    setRoom(room);
+    // URLから名前、部屋名を入力された時の対策
+    if (name.length > 10 || room.length > 10) {
+      history.push({
+        pathname: "/",
+      });
+    } else {
+      setName(name);
+      setRoom(room);
+    }
 
     socket.emit("join", { name, room }, (error) => {
       if (error) {

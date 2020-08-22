@@ -1,5 +1,7 @@
 import React from "react";
 import "./Timer.css";
+import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+import StopIcon from "@material-ui/icons/Stop";
 
 const Timer = ({ second, setSecond, timerId, setTimerId }) => {
   const startTimer = (e) => {
@@ -48,15 +50,31 @@ const Timer = ({ second, setSecond, timerId, setTimerId }) => {
         <span role="img" aria-label="emoji">
           ⏱
         </span>
-        timer
+        Timer
       </h3>
       <div className="timerDisplay">{formatTimer(second)}</div>
-      <button onClick={(e) => setSecond((second) => second + 3600)}>+1H</button>
-      <button onClick={(e) => setSecond((second) => second + 600)}>+10M</button>
-      <button onClick={(e) => setSecond((second) => second + 60)}>+1M</button>
-      <button onClick={(e) => setSecond((second) => second + 10)}>+10s</button>
-      <button onClick={(e) => startTimer(e)}>start</button>
-      <button onClick={(e) => resetTimer(e)}>reset</button>
+      <div className="timerButton">
+        <button onClick={(e) => setSecond((second) => second + 3600)}>
+          +1H
+        </button>
+        <button onClick={(e) => setSecond((second) => second + 600)}>
+          +10M
+        </button>
+        <button onClick={(e) => setSecond((second) => second + 60)}>+1M</button>
+        <button onClick={(e) => setSecond((second) => second + 10)}>
+          +10s
+        </button>
+        <button onClick={(e) => startTimer(e)}>
+          <p className="startButton">
+            <PlayCircleFilledIcon />
+          </p>
+        </button>
+        <button onClick={(e) => resetTimer(e)}>
+          <p className="stopButton">
+            <StopIcon />
+          </p>
+        </button>
+      </div>
     </div>
   );
 };

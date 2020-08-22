@@ -2,33 +2,72 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import "./Join.css";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 
 const Join = () => {
   const [name, setName] = useState("");
   const [room, setRoom] = useState("");
+  const [errorNameMessage, setErrorNameMessage] = useState("");
+  const [errorRoomMessage, setErrorRoomMessage] = useState("");
+
+  const filterName = (e) => {
+    if (e.target.value.length <= 10) {
+      setErrorNameMessage("");
+      setName(e.target.value);
+    } else {
+      setErrorNameMessage("ユーザ名は10文字以内で入力してください");
+    }
+  };
+
+  const filterRoom = (e) => {
+    if (e.target.value.length <= 10) {
+      setErrorRoomMessage("");
+      setRoom(e.target.value);
+    } else {
+      setErrorRoomMessage("ルーム名は10文字以内で入力してください");
+    }
+  };
 
   return (
     <>
       <Header />
       <div className="joinOuterContainer">
         <div className="joinInnerContainer">
-          <h1 className="heading">Join</h1>
+          <h1 className="heading">
+            <span className="icon">
+              <MeetingRoomIcon fontSize="large" />
+            </span>
+            部屋を探す
+          </h1>
           <div>
-            <input
-              placeholder="Name"
-              className="joinInput"
-              type="test"
-              onChange={(event) => setName(event.target.value)}
-            />
+            <label>
+              <div className="nameLabel">User Name</div>
+              <input
+                placeholder="Name"
+                className="joinInput"
+                type="text"
+                onChange={(e) => filterName(e)}
+              />
+            </label>
           </div>
+          {errorNameMessage && (
+            <div className="errorNameMessage">{errorNameMessage}</div>
+          )}
           <div>
-            <input
-              placeholder="Room"
-              className="joinInput mt-20"
-              type="test"
-              onChange={(event) => setRoom(event.target.value)}
-            />
+            <label>
+              <div className="roomLabel">Room Name</div>
+              <input
+                placeholder="Room"
+                className="joinInput"
+                type="text"
+                onChange={(e) => filterRoom(e)}
+              />
+            </label>
           </div>
+          {errorRoomMessage && (
+            <div className="errorRoomMessage">{errorRoomMessage}</div>
+          )}
           <Link
             onClick={(event) =>
               !name || !room ? event.preventDefault() : null
@@ -36,7 +75,10 @@ const Join = () => {
             to={`/chat?name=${name}&room=${room}`}
           >
             <button className="button mt-20" type="submit">
-              Sign In
+              参加する
+              <span className="icon">
+                <EmojiPeopleIcon />
+              </span>
             </button>
           </Link>
         </div>

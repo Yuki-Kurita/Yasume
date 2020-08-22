@@ -14,6 +14,10 @@ body {
   box-sizing: border-box;
 }
 
+.joinInnerContainer h1 {
+  margin-top: 0px;
+}
+
 .joinOuterContainer {
   display: flex;
   justify-content: center;
@@ -24,8 +28,8 @@ body {
 }
 
 .joinInnerContainer {
-  width: 430px;
-  padding: 40px 35px 75px 35px;
+  width: 500px;
+  padding: 20px 0 50px;
   border-radius: 40px;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
@@ -38,17 +42,18 @@ body {
   font-size: 18px;
   color: #00473e;
   padding: 20px 10px 20px 20px;
-  width: 100%;
-  margin-bottom: 30px;
+  width: 80%;
+  margin-bottom: 1rem;
   border-radius: 25px;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
 }
 
 .heading {
   color: #00473e;
-  font-size: 2.5em;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #00473e;
+  font-size: 1.5em;
+  padding: 20px 0 20px;
+  margin-bottom: 2rem;
+  box-shadow: 13px 13px 20px #cbced1, 0px 0px 0px #ffffff;
 }
 
 .button {
@@ -56,16 +61,30 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   background: #faae2b;
+  margin-top: 1rem;
   padding: 15px 20px;
   border-radius: 5px;
   display: inline-block;
   border: none;
-  width: 70%;
+  width: 50%;
   box-shadow: 11px 11px 11px #d59425, -3px -3px 22px #ffc831;
 }
 
-.mt-20 {
-  margin-top: 20px;
+.errorNameMessage,
+.errorRoomMessage {
+  color: #db5622;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.nameLabel,
+.roomLabel {
+  font-weight: 600;
+  width: 100%;
+}
+
+.icon {
+  vertical-align: middle;
 }
 
 @media (max-width: 500px) {
