@@ -28,6 +28,7 @@ const Chat = ({ location }) => {
   const { history } = useReactRouter();
 
   const ENDPOINT = process.env.ENDPOINT || "localhost:5000";
+  console.log(process.env);
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
