@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Timer.css";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import StopIcon from "@material-ui/icons/Stop";
 
 const Timer = ({ second, setSecond, timerId, setTimerId, setTimer }) => {
+  const [isDisableButton, setIsDisableButton] = useState(false);
+
   const startTimer = (e) => {
     e.preventDefault();
     setTimer(1);
+    setIsDisableButton(true);
     setTimerId(
       setInterval(() => {
         setSecond((second) => second - 1);
@@ -17,6 +20,7 @@ const Timer = ({ second, setSecond, timerId, setTimerId, setTimer }) => {
   const resetTimer = (e) => {
     e.preventDefault();
     setTimer(0);
+    setIsDisableButton(false);
     clearInterval(timerId);
     setSecond(0);
   };
@@ -56,14 +60,32 @@ const Timer = ({ second, setSecond, timerId, setTimerId, setTimer }) => {
       </h3>
       <div className="timerDisplay">{formatTimer(second)}</div>
       <div className="timerButton">
-        <button onClick={(e) => setSecond((second) => second + 3600)}>
+        <button
+          onClick={(e) => setSecond((second) => second + 3600)}
+          className={isDisableButton ? "disable" : "enable"}
+          disabled={isDisableButton}
+        >
           +1H
         </button>
-        <button onClick={(e) => setSecond((second) => second + 600)}>
+        <button
+          onClick={(e) => setSecond((second) => second + 600)}
+          className={isDisableButton ? "disable" : "enable"}
+          disabled={isDisableButton}
+        >
           +10M
         </button>
-        <button onClick={(e) => setSecond((second) => second + 60)}>+1M</button>
-        <button onClick={(e) => setSecond((second) => second + 10)}>
+        <button
+          onClick={(e) => setSecond((second) => second + 60)}
+          className={isDisableButton ? "disable" : "enable"}
+          disabled={isDisableButton}
+        >
+          +1M
+        </button>
+        <button
+          onClick={(e) => setSecond((second) => second + 10)}
+          className={isDisableButton ? "disable" : "enable"}
+          disabled={isDisableButton}
+        >
           +10s
         </button>
         <button onClick={(e) => startTimer(e)}>
