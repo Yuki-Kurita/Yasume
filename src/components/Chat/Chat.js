@@ -27,7 +27,10 @@ const Chat = ({ location }) => {
   const [isDisableButton, setIsDisableButton] = useState(false);
   const { history } = useReactRouter();
 
-  const ENDPOINT = process.env.NODE_ENV === "production" ? "https://yasume.herokuapp.com/" || "localhost:5000";
+  const ENDPOINT =
+    process.env.NODE_ENV === "production"
+      ? "https://yasume.herokuapp.com/"
+      : "localhost:5000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
