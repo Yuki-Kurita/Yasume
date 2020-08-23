@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Timer.css";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import StopIcon from "@material-ui/icons/Stop";
 
-const Timer = ({ second, setSecond, timerId, setTimerId, setTimer }) => {
-  const [isDisableButton, setIsDisableButton] = useState(false);
-
+const Timer = ({
+  second,
+  setSecond,
+  timerId,
+  setTimerId,
+  setTimer,
+  isDisableButton,
+  setIsDisableButton,
+}) => {
   const startTimer = (e) => {
     e.preventDefault();
     setTimer(1);

@@ -23,6 +23,8 @@ const Chat = ({ location }) => {
   const [timerId, setTimerId] = useState("");
   // 0: タイマー停止, 1: タイマー開始, 空: 準備中
   const [timer, setTimer] = useState(2);
+  // timerのボタンがdisabledか否か
+  const [isDisableButton, setIsDisableButton] = useState(false);
   const { history } = useReactRouter();
 
   const ENDPOINT = process.env.ENDPOINT || "localhost:5000";
@@ -85,12 +87,17 @@ const Chat = ({ location }) => {
   useEffect(() => {
     socket.emit("sendWorkingStatus", timer);
     socket.on("status", (status) => {
-      console.log(`status: ${status}`);
       setTimer(status);
     });
   }, [timer]);
 
-  // buttonのstyleを送信
+  // buttonのdisabled状態を送信
+  useEffect(() => {
+    socket.emit("sendDisabledButton", isDisableButton);
+    socket.on("disabledButton", (disabledButton) => {
+      setIsDisableButton(disabledButton);
+    });
+  }, [isDisableButton]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -112,6 +119,8 @@ const Chat = ({ location }) => {
               timerId={timerId}
               setTimerId={setTimerId}
               setTimer={setTimer}
+              isDisableButton={isDisableButton}
+              setIsDisableButton={setIsDisableButton}
             />
             <Status timer={timer} />
           </div>
