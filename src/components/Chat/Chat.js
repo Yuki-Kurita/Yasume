@@ -29,6 +29,7 @@ const Chat = ({ location }) => {
 
   const ENDPOINT = process.env.ENDPOINT || "localhost:5000";
   console.log(process.env);
+  console.log(process.env.ENDPOINT);
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
