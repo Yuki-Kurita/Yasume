@@ -6,6 +6,7 @@ import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
 import TextContainer from "../TextContainer/TextContainer";
 import Timer from "../Timer/Timer";
+import Status from "../Status/Status";
 import "./Chat.css";
 import Grid from "@material-ui/core/Grid";
 import useReactRouter from "use-react-router";
@@ -20,9 +21,13 @@ const Chat = ({ location }) => {
   const [messages, setMessages] = useState([]);
   const [second, setSecond] = useState(0);
   const [timerId, setTimerId] = useState("");
+  // 0: タイマー停止, 1: タイマー開始, 空: 準備中
+  const [timer, setTimer] = useState(2);
+  // timerのボタンがdisabledか否か
+  const [isDisableButton, setIsDisableButton] = useState(false);
   const { history } = useReactRouter();
 
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = process.env.ENDPOINT || "localhost:5000";
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -63,9 +68,13 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     // -秒になったら終了
-    if (second === 0) {
+    console.log(timerId);
+    if (second === 0 && timerId) {
       clearInterval(timerId);
+      console.log("-秒");
+      setTimer(0);
       setSecond(0);
+      setTimerId("");
     }
     // server側にタイマーの設定を送信
     socket.emit("sendTimer", { second: second });
@@ -73,6 +82,22 @@ const Chat = ({ location }) => {
       setSecond(timer.second);
     });
   }, [second, timerId]);
+
+  // 稼働中かどうかを送信
+  useEffect(() => {
+    socket.emit("sendWorkingStatus", timer);
+    socket.on("status", (status) => {
+      setTimer(status);
+    });
+  }, [timer]);
+
+  // buttonのdisabled状態を送信
+  useEffect(() => {
+    socket.emit("sendDisabledButton", isDisableButton);
+    socket.on("disabledButton", (disabledButton) => {
+      setIsDisableButton(disabledButton);
+    });
+  }, [isDisableButton]);
 
   const sendMessage = (event) => {
     event.preventDefault();
@@ -93,7 +118,11 @@ const Chat = ({ location }) => {
               setSecond={setSecond}
               timerId={timerId}
               setTimerId={setTimerId}
+              setTimer={setTimer}
+              isDisableButton={isDisableButton}
+              setIsDisableButton={setIsDisableButton}
             />
+            <Status timer={timer} />
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={5}>

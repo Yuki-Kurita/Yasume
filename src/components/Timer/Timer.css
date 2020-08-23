@@ -50,6 +50,10 @@
   color: #f05f46;
 }
 
+.timerButton .disable {
+  opacity: 0.3;
+}
+
 @media screen and (max-width: 960px) {
   .timerContainer {
     margin-top: 0;
