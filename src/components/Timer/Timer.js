@@ -3,9 +3,10 @@ import "./Timer.css";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import StopIcon from "@material-ui/icons/Stop";
 
-const Timer = ({ second, setSecond, timerId, setTimerId }) => {
+const Timer = ({ second, setSecond, timerId, setTimerId, setTimer }) => {
   const startTimer = (e) => {
     e.preventDefault();
+    setTimer(1);
     setTimerId(
       setInterval(() => {
         setSecond((second) => second - 1);
@@ -15,6 +16,7 @@ const Timer = ({ second, setSecond, timerId, setTimerId }) => {
 
   const resetTimer = (e) => {
     e.preventDefault();
+    setTimer(0);
     clearInterval(timerId);
     setSecond(0);
   };
