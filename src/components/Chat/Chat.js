@@ -21,7 +21,7 @@ const Chat = ({ location }) => {
   const [messages, setMessages] = useState([]);
   const [second, setSecond] = useState(0);
   const [timerId, setTimerId] = useState("");
-  // 0: タイマー停止, 1: タイマー開始, 2: 何も押されていない
+  // 0: タイマー停止, 1: タイマー開始, 空: 準備中
   const [timer, setTimer] = useState(2);
   const { history } = useReactRouter();
 
@@ -66,10 +66,13 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     // -秒になったら終了
-    if (second === 0) {
+    console.log(timerId);
+    if (second === 0 && timerId) {
       clearInterval(timerId);
+      console.log("-秒");
       setTimer(0);
       setSecond(0);
+      setTimerId("");
     }
     // server側にタイマーの設定を送信
     socket.emit("sendTimer", { second: second });
@@ -77,6 +80,17 @@ const Chat = ({ location }) => {
       setSecond(timer.second);
     });
   }, [second, timerId]);
+
+  // 稼働中かどうかを送信
+  useEffect(() => {
+    socket.emit("sendWorkingStatus", timer);
+    socket.on("status", (status) => {
+      console.log(`status: ${status}`);
+      setTimer(status);
+    });
+  }, [timer]);
+
+  // buttonのstyleを送信
 
   const sendMessage = (event) => {
     event.preventDefault();
