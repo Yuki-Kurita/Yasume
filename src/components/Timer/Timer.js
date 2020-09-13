@@ -8,13 +8,20 @@ const Timer = ({
   setSecond,
   timerId,
   setTimerId,
-  setTimer,
+  workingStatus,
+  setWorkingStatus,
   isDisableButton,
   setIsDisableButton,
 }) => {
   const startTimer = (e) => {
+    if (second <= 0) {
+      return;
+    }
     e.preventDefault();
-    setTimer(1);
+    // 休憩中(0)の状態で開始したら0のまま
+    if (workingStatus === 1 || workingStatus === 2) {
+      setWorkingStatus(1);
+    }
     setIsDisableButton(true);
     setTimerId(
       setInterval(() => {
@@ -25,7 +32,13 @@ const Timer = ({
 
   const resetTimer = (e) => {
     e.preventDefault();
-    setTimer(0);
+    // 作業中(1)の状態で終了したら休憩(0)に移る
+    if (workingStatus === 1) {
+      setWorkingStatus(0);
+      // 休憩中(0)の状態で終了したら待機(2)に移る
+    } else if (workingStatus === 0) {
+      setWorkingStatus(2);
+    }
     setIsDisableButton(false);
     clearInterval(timerId);
     setSecond(0);
@@ -59,10 +72,9 @@ const Timer = ({
   return (
     <div className="timerContainer">
       <h3>
-        <span role="img" aria-label="emoji">
-          ⏱
-        </span>
-        Timer
+        {workingStatus === 1 || workingStatus === 2
+          ? "⏱ Work time"
+          : "☕️ Break time"}
       </h3>
       <div className="timerDisplay">{formatTimer(second)}</div>
       <div className="timerButton">
@@ -94,12 +106,20 @@ const Timer = ({
         >
           +10s
         </button>
-        <button onClick={(e) => startTimer(e)}>
+        <button
+          onClick={(e) => startTimer(e)}
+          className={isDisableButton ? "disable" : "enable"}
+          disabled={isDisableButton}
+        >
           <p className="startButton">
             <PlayCircleFilledIcon />
           </p>
         </button>
-        <button onClick={(e) => resetTimer(e)}>
+        <button
+          onClick={(e) => resetTimer(e)}
+          className={!isDisableButton ? "disable" : "enable"}
+          disabled={!isDisableButton}
+        >
           <p className="stopButton">
             <StopIcon />
           </p>

@@ -1,68 +1,67 @@
 import React, { useState, useEffect } from "react";
-import queryString from "query-string";
 import InfoBar from "../InfoBar/InfoBar";
-import Input from "../Input/Input";
-import Messages from "../Messages/Messages";
-import TextContainer from "../TextContainer/TextContainer";
 import Timer from "../Timer/Timer";
 import Status from "../Status/Status";
 import "./SingleRoom.css";
 import Grid from "@material-ui/core/Grid";
-import useReactRouter from "use-react-router";
-
-let socket;
 
 const SingleRoom = ({ location }) => {
-  const [name, setName] = useState("");
-  const [room, setRoom] = useState("");
-  const [users, setUsers] = useState("");
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [second, setSecond] = useState(0);
+  const [second, setSecond] = useState(25 * 60);
   const [timerId, setTimerId] = useState("");
   // 0: タイマー停止, 1: タイマー開始, 空: 準備中
-  const [timer, setTimer] = useState(2);
+  const [workingStatus, setWorkingStatus] = useState(2);
   // timerのボタンがdisabledか否か
   const [isDisableButton, setIsDisableButton] = useState(false);
-  const { history } = useReactRouter();
+  // 今してること
+  const [work, setWork] = useState("");
 
   useEffect(() => {
     // -秒になったら終了
-    console.log(timerId);
-    if (second === 0 && timerId) {
+    if (second < 0 && timerId) {
       clearInterval(timerId);
-      console.log("-秒");
-      setTimer(0);
+      // 作業中(1)の状態で終了したら休憩(0)に移る
+      if (workingStatus === 1) {
+        setWorkingStatus(0);
+        // 休憩中(0)の状態で終了したら待機(2)に移る
+      } else if (workingStatus === 0) {
+        setWorkingStatus(2);
+      }
       setSecond(0);
       setTimerId("");
+      setIsDisableButton(false);
     }
-  }, [second, timerId]);
-
-  const sendMessage = (event) => {
-    event.preventDefault();
-    if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
-    }
-  };
+  }, [second, timerId, workingStatus]);
 
   return (
     <>
-      <InfoBar room={room} />
+      <InfoBar />
       <Grid container>
-        <Grid item xs={12} sm={12} md={7}>
+        <Grid item xs={12} sm={12} md={6}>
           <div className="leftContainer">
-            <TextContainer users={users} />
             <Timer
               second={second}
               setSecond={setSecond}
               timerId={timerId}
               setTimerId={setTimerId}
-              setTimer={setTimer}
+              workingStatus={workingStatus}
+              setWorkingStatus={setWorkingStatus}
               isDisableButton={isDisableButton}
               setIsDisableButton={setIsDisableButton}
             />
-            <Status timer={timer} />
+            <Status
+              workingStatus={workingStatus}
+              work={work}
+              setWork={setWork}
+              setSecond={setSecond}
+              setWorkingStatus={setWorkingStatus}
+              setIsDisableButton={setIsDisableButton}
+              setTimerId={setTimerId}
+              isDisableButton={isDisableButton}
+            />
           </div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6}>
+          <div className="rightContainer">dashBoard的な{work}</div>
         </Grid>
       </Grid>
     </>

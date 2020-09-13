@@ -12,6 +12,10 @@ h2 {
   height: 100vh;
 }
 
+.leftContainer {
+  margin: 2rem;
+}
+
 .rightContainer {
   display: flex;
   flex-direction: column;
@@ -35,7 +39,10 @@ h2 {
 
 @media screen and (max-width: 480px) {
   .rightContainer {
-    margin-top: 0;
-    height: 300px;
+    margin: 1rem 0;
+    width: 100%;
+  }
+  .leftContainer {
+    margin: 1rem 0;
   }
 }
