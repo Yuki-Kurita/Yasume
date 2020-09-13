@@ -1,0 +1,41 @@
+h2 {
+  color: #00473e;
+  font-family: "Roboto", sans-serif;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ecf0f3;
+  border-radius: 20px;
+  height: 600px;
+  width: 90%;
+  margin-top: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+@media screen and (min-width: 480px) and (max-width: 960px) {
+  .rightContainer {
+    margin-top: 0;
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .rightContainer {
+    margin-top: 0;
+    height: 300px;
+  }
+}

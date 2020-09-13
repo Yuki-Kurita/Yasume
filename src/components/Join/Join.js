@@ -9,6 +9,7 @@ import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 import workspaceIcon from "../../icons/workspace.svg";
 import timerIcon from "../../icons/timer.svg";
 import chatIcon from "../../icons/chat.svg";
+import stopwatchIcon from "../../icons/stopwatch.svg";
 
 const Join = () => {
   const [name, setName] = useState("");
@@ -62,6 +63,19 @@ const Join = () => {
         </Grid>
         <Grid item xs={12} sm={6} md={6}>
           <div className="joinOuterContainer">
+            <div className="joinInnerContainer">
+              <h2>1人で始める</h2>
+              <Link to="/singleRoom">
+                <button className="singleJoinButton">
+                  <img
+                    className="stopwatchIcon"
+                    src={stopwatchIcon}
+                    alt="timer"
+                  />
+                  Go to App
+                </button>
+              </Link>
+            </div>
             <div className="joinInnerContainer">
               <h1 className="heading">
                 <span className="icon">
