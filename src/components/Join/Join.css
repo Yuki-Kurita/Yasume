@@ -4,6 +4,16 @@ body {
   padding: 0;
   margin: 0;
   background-color: #e0e5ec;
+  color: #00473e;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
 }
 
 #root {
@@ -19,7 +29,7 @@ body {
 }
 
 .joinOuterContainer {
-  display: flex;
+  margin-top: 3rem;
   justify-content: center;
   text-align: center;
   height: 92vh;
@@ -27,8 +37,19 @@ body {
 }
 
 .joinInnerContainer {
-  width: 500px;
+  width: 80%;
   padding: 20px 0 50px;
+  margin: 0 auto 3rem;
+  border-radius: 40px;
+  background: #ecf0f3;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+}
+
+.singleJoinButton {
+  color: #00473e;
+  padding: 10px 40px;
+  font-weight: 700;
+  font-size: 18px;
   border-radius: 40px;
   background: #ecf0f3;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
@@ -39,7 +60,6 @@ body {
   outline: none;
   background: none;
   font-size: 18px;
-  color: #00473e;
   padding: 20px 10px 20px 20px;
   width: 80%;
   margin-bottom: 1rem;
@@ -48,7 +68,6 @@ body {
 }
 
 .heading {
-  color: #00473e;
   font-size: 1.5em;
   padding: 20px 0 20px;
   margin-bottom: 2rem;
@@ -86,8 +105,15 @@ body {
   vertical-align: middle;
 }
 
+.stopwatchIcon {
+  width: 1.5rem;
+  margin-right: 0.4rem;
+  margin-bottom: 0.15rem;
+  vertical-align: middle;
+}
+
 .stepContainer {
-  margin-top: 4rem;
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
