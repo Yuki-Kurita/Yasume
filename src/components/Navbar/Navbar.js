@@ -8,7 +8,6 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   background-color: isTimer && #199509;
-
   .logo {
     font-family: "Roboto", sans-serif;
     color: #fff;
