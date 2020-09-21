@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import InfoBar from "../InfoBar/InfoBar";
 import Timer from "../Timer/Timer";
 import Status from "../Status/Status";
+import Navbar from "../Navbar/Navbar";
 import "./SingleRoom.css";
 import Grid from "@material-ui/core/Grid";
 
@@ -34,7 +34,7 @@ const SingleRoom = ({ location }) => {
 
   return (
     <>
-      <InfoBar />
+      <Navbar isTimer={true} />
       <Grid container>
         <Grid item xs={12} sm={12} md={6}>
           <div className="leftContainer">
