@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../AuthProvider";
 import { withRouter } from "react-router";
 import "./style.scss";
@@ -7,11 +7,12 @@ import loginIcon from "../../icons/login.svg";
 
 const Login = ({ history, setIsDisplay }) => {
   const { loginUser } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (history, event) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
-    loginUser(email.value, password.value, history);
+    loginUser(email, password, history);
   };
 
   return (
@@ -21,7 +22,7 @@ const Login = ({ history, setIsDisplay }) => {
         <button className="closeButton" onClick={() => setIsDisplay(false)}>
           <CancelIcon />
         </button>
-        <form className="formBox" onSubmit={handleSubmit}>
+        <form className="formBox">
           <h3>Login</h3>
           <img className="formImage" src={loginIcon} alt="login" />
           <div className="input-group">
@@ -31,6 +32,7 @@ const Login = ({ history, setIsDisplay }) => {
               name="email"
               className="login-input"
               placeholder="Username"
+              onChange={(event) => setEmail(event.target.value)}
             />
           </div>
           <div className="input-group">
@@ -40,9 +42,14 @@ const Login = ({ history, setIsDisplay }) => {
               name="password"
               className="login-input"
               placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
             />
           </div>
-          <button type="submit" className="submitButton">
+          <button
+            type="submit"
+            className="submitButton"
+            onClick={(e) => handleSubmit(history, e)}
+          >
             Login
           </button>
         </form>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FormBox from "../Form/FormBox";
+import * as firebase from "firebase";
 
 const Ul = styled.ul`
   list-style: none;
@@ -32,6 +33,7 @@ const Ul = styled.ul`
 const RightNav = ({ open }) => {
   const [isDisplay, setIsDisplay] = useState(false);
   const [isLoginForm, setIsLoginForm] = useState(false);
+  const user = firebase.auth().currentUser;
 
   const handleForm = (selectedActivitiy, e) => {
     setIsDisplay(true);
@@ -49,12 +51,17 @@ const RightNav = ({ open }) => {
         <a href="#team">
           <li>みんなで始める</li>
         </a>
-        <button onClick={(e) => handleForm("login", e)}>
-          <li>Login</li>
-        </button>
-        <button onClick={(e) => handleForm("signUp", e)}>
-          <li>Sign Up</li>
-        </button>
+        {!user && (
+          <>
+            <button onClick={(e) => handleForm("login", e)}>
+              <li>Login</li>
+            </button>
+            <button onClick={(e) => handleForm("signUp", e)}>
+              <li>Sign Up</li>
+            </button>
+          </>
+        )}
+        {user && <li>アカウント</li>}
       </Ul>
       <FormBox
         isDisplay={isDisplay}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   // // ユーザを新規登録させる
   const signUpUser = async (email, password, history) => {
+    console.log("signup");
     try {
       await app.auth().createUserWithEmailAndPassword(email, password);
       history.push("/singleRoom");
@@ -38,14 +39,6 @@ export const AuthProvider = ({ children }) => {
       alert(error.message);
     }
   };
-
-  // // ユーザがログインしてるかどうかマウント毎に確認
-  useEffect(() => {
-    console.log(process.env.REACT_APP_FIREBASE_APP_ID);
-    app.auth().onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-  }, [app]);
 
   return (
     <AuthContext.Provider

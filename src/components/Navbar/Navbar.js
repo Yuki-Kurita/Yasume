@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Burger from "../Burger/Burger";
 
@@ -7,7 +8,8 @@ const Nav = styled.nav`
   height: 55px;
   display: flex;
   justify-content: space-between;
-  background-color: isTimer && #199509;
+  background-color: ${({ isTimer }) => isTimer && "#199509"};
+  padding-bottom: 4.5rem;
   .logo {
     font-family: "Roboto", sans-serif;
     color: #fff;
@@ -23,7 +25,9 @@ const Nav = styled.nav`
 const Navbar = ({ isTimer }) => {
   return (
     <Nav isTimer={isTimer}>
-      <div className="logo">Yasume</div>
+      <Link to="/">
+        <div className="logo">Yasume</div>
+      </Link>
       <Burger />
     </Nav>
   );
