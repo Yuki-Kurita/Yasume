@@ -20,9 +20,7 @@ h2 {
   border-radius: 20px;
   height: 600px;
   width: 90%;
-  margin-top: 3em;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 2em auto;
   box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
 }
 
