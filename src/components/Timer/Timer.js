@@ -6,14 +6,19 @@ import StopIcon from "@material-ui/icons/Stop";
 const Timer = ({
   second,
   setSecond,
+  initialSecond,
+  setInitialSecond,
   timerId,
   setTimerId,
   workingStatus,
   setWorkingStatus,
   isDisableButton,
   setIsDisableButton,
+  work,
+  addWork,
 }) => {
   const startTimer = (e) => {
+    setInitialSecond(second);
     if (second <= 0) {
       return;
     }
@@ -32,9 +37,10 @@ const Timer = ({
 
   const resetTimer = (e) => {
     e.preventDefault();
-    // 作業中(1)の状態で終了したら休憩(0)に移る
+    // 作業中(1)の状態で終了したら休憩(0)に移り、作業内容・時間を記録
     if (workingStatus === 1) {
       setWorkingStatus(0);
+      addWork({ content: work, time: initialSecond - second });
       // 休憩中(0)の状態で終了したら待機(2)に移る
     } else if (workingStatus === 0) {
       setWorkingStatus(2);

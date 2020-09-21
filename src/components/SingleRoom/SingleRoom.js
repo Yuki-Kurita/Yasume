@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Timer from "../Timer/Timer";
+import Timer from "../Timer/Container/Timer";
 import Status from "../Status/Status";
 import Navbar from "../Navbar/Navbar";
 import "./SingleRoom.css";
 import Grid from "@material-ui/core/Grid";
 
 const SingleRoom = ({ location }) => {
+  const [initialSecond, setInitialSecond] = useState(25 * 60);
   const [second, setSecond] = useState(25 * 60);
   const [timerId, setTimerId] = useState("");
   // 0: タイマー停止, 1: タイマー開始, 空: 準備中
@@ -41,18 +42,22 @@ const SingleRoom = ({ location }) => {
             <Timer
               second={second}
               setSecond={setSecond}
+              initialSecond={initialSecond}
+              setInitialSecond={setInitialSecond}
               timerId={timerId}
               setTimerId={setTimerId}
               workingStatus={workingStatus}
               setWorkingStatus={setWorkingStatus}
               isDisableButton={isDisableButton}
               setIsDisableButton={setIsDisableButton}
+              work={work}
             />
             <Status
               workingStatus={workingStatus}
               work={work}
               setWork={setWork}
               setSecond={setSecond}
+              setInitialSecond={setInitialSecond}
               setWorkingStatus={setWorkingStatus}
               setIsDisableButton={setIsDisableButton}
               setTimerId={setTimerId}

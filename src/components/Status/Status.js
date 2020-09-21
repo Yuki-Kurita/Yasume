@@ -9,6 +9,7 @@ const Status = ({
   work,
   setWork,
   setSecond,
+  setInitialSecond,
   setWorkingStatus,
   setIsDisableButton,
   setTimerId,
@@ -44,6 +45,7 @@ const Status = ({
 
   const startTimer = (min, e) => {
     setSecond(min * 60);
+    setInitialSecond(min * 60);
     e.preventDefault();
     // 休憩中(0)の状態で開始したら0のまま
     if (workingStatus === 1 || workingStatus === 2) {
