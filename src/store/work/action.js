@@ -4,3 +4,8 @@ export const addWork = (work) => ({
   content: work.content,
   time: work.time,
 });
+
+// 作業履歴を取得
+export const fetchWork = (work) => ({
+  type: "GET_WORK",
+});

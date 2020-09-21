@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Timer from "../Timer/Container/Timer";
+import Dashboard from "../Dashboard/Container/Dashboard";
 import Status from "../Status/Status";
 import Navbar from "../Navbar/Navbar";
 import "./SingleRoom.css";
 import Grid from "@material-ui/core/Grid";
 
-const SingleRoom = ({ location }) => {
-  const [initialSecond, setInitialSecond] = useState(25 * 60);
-  const [second, setSecond] = useState(25 * 60);
+const SingleRoom = ({ works, addWork }) => {
+  const [initialSecond, setInitialSecond] = useState(0);
+  const [second, setSecond] = useState(0);
   const [timerId, setTimerId] = useState("");
   // 0: タイマー停止, 1: タイマー開始, 空: 準備中
   const [workingStatus, setWorkingStatus] = useState(2);
@@ -20,8 +21,9 @@ const SingleRoom = ({ location }) => {
     // -秒になったら終了
     if (second < 0 && timerId) {
       clearInterval(timerId);
-      // 作業中(1)の状態で終了したら休憩(0)に移る
+      // 作業中(1)の状態で終了したら休憩(0)に移り、作業記録を保存
       if (workingStatus === 1) {
+        addWork({ content: work, time: initialSecond - second });
         setWorkingStatus(0);
         // 休憩中(0)の状態で終了したら待機(2)に移る
       } else if (workingStatus === 0) {
@@ -31,7 +33,7 @@ const SingleRoom = ({ location }) => {
       setTimerId("");
       setIsDisableButton(false);
     }
-  }, [second, timerId, workingStatus]);
+  }, [addWork, initialSecond, second, timerId, work, workingStatus]);
 
   return (
     <>
@@ -66,7 +68,9 @@ const SingleRoom = ({ location }) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
-          <div className="rightContainer">dashBoard的な{work}</div>
+          <div className="rightContainer">
+            <Dashboard />
+          </div>
         </Grid>
       </Grid>
     </>

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Timer from "../Timer";
+import SingleRoom from "../SingleRoom";
 import { addWork } from "../../../store/work/action";
 
 const mapStateToProps = (state) => ({
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleRoom);
