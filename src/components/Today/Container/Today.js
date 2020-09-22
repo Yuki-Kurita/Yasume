@@ -1,9 +1,9 @@
 import { connect } from "react-redux";
-import Dashboard from "../Dashboard";
-import { fetchWork } from "../../../store/work/action";
+import Today from "../Today";
+import { fetchWork } from "../../../store/works/action";
 
 const mapStateToProps = (state) => ({
-  works: state,
+  works: state.works,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Today);

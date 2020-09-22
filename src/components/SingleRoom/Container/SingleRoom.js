@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import SingleRoom from "../SingleRoom";
-import { addWork } from "../../../store/work/action";
+import { addWork } from "../../../store/works/action";
 
 const mapStateToProps = (state) => ({
   works: state,

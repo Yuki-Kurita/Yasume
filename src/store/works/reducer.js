@@ -6,6 +6,8 @@ const works = (state = [], action) => {
         {
           content: action.content,
           time: action.time,
+          startTime: action.startTime,
+          endTime: action.endTime,
         },
       ];
     default:

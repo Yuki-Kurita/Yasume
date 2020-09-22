@@ -14,11 +14,14 @@ const Timer = ({
   setWorkingStatus,
   isDisableButton,
   setIsDisableButton,
+  startTime,
+  setStartTime,
   work,
   addWork,
 }) => {
   const startTimer = (e) => {
     setInitialSecond(second);
+    setStartTime(new Date());
     if (second <= 0) {
       return;
     }
@@ -40,7 +43,12 @@ const Timer = ({
     // 作業中(1)の状態で終了したら休憩(0)に移り、作業内容・時間を記録
     if (workingStatus === 1) {
       setWorkingStatus(0);
-      addWork({ content: work, time: initialSecond - second });
+      addWork({
+        content: work,
+        time: initialSecond - second,
+        startTime: startTime,
+        endTime: new Date(),
+      });
       // 休憩中(0)の状態で終了したら待機(2)に移る
     } else if (workingStatus === 0) {
       setWorkingStatus(2);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Timer from "../Timer/Container/Timer";
-import Dashboard from "../Dashboard/Container/Dashboard";
+import Today from "../Today/Container/Today";
 import Status from "../Status/Status";
 import Navbar from "../Navbar/Navbar";
 import "./SingleRoom.css";
@@ -16,6 +16,8 @@ const SingleRoom = ({ works, addWork }) => {
   const [isDisableButton, setIsDisableButton] = useState(false);
   // 今してること
   const [work, setWork] = useState("");
+  // 開始時間と終了時間
+  const [startTime, setStartTime] = useState("");
 
   useEffect(() => {
     // -秒になったら終了
@@ -23,7 +25,12 @@ const SingleRoom = ({ works, addWork }) => {
       clearInterval(timerId);
       // 作業中(1)の状態で終了したら休憩(0)に移り、作業記録を保存
       if (workingStatus === 1) {
-        addWork({ content: work, time: initialSecond - second });
+        addWork({
+          content: work,
+          time: initialSecond - second,
+          startTime: startTime,
+          endTime: new Date(),
+        });
         setWorkingStatus(0);
         // 休憩中(0)の状態で終了したら待機(2)に移る
       } else if (workingStatus === 0) {
@@ -33,7 +40,7 @@ const SingleRoom = ({ works, addWork }) => {
       setTimerId("");
       setIsDisableButton(false);
     }
-  }, [addWork, initialSecond, second, timerId, work, workingStatus]);
+  }, [addWork, initialSecond, second, startTime, timerId, work, workingStatus]);
 
   return (
     <>
@@ -52,6 +59,8 @@ const SingleRoom = ({ works, addWork }) => {
               setWorkingStatus={setWorkingStatus}
               isDisableButton={isDisableButton}
               setIsDisableButton={setIsDisableButton}
+              startTime={startTime}
+              setStartTime={setStartTime}
               work={work}
             />
             <Status
@@ -69,7 +78,7 @@ const SingleRoom = ({ works, addWork }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
           <div className="rightContainer">
-            <Dashboard />
+            <Today />
           </div>
         </Grid>
       </Grid>
