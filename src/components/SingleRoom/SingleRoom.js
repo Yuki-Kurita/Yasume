@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import Timer from "../Timer/Container/Timer";
 import Today from "../Today/Container/Today";
 import Status from "../Status/Status";
@@ -29,7 +30,7 @@ const SingleRoom = ({ works, addWork }) => {
           content: work,
           time: initialSecond - second,
           startTime: startTime,
-          endTime: new Date(),
+          endTime: moment(),
         });
         setWorkingStatus(0);
         // 休憩中(0)の状態で終了したら待機(2)に移る
@@ -72,6 +73,7 @@ const SingleRoom = ({ works, addWork }) => {
               setWorkingStatus={setWorkingStatus}
               setIsDisableButton={setIsDisableButton}
               setTimerId={setTimerId}
+              setStartTime={setStartTime}
               isDisableButton={isDisableButton}
             />
           </div>

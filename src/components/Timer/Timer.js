@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import "./Timer.css";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import StopIcon from "@material-ui/icons/Stop";
@@ -21,7 +22,7 @@ const Timer = ({
 }) => {
   const startTimer = (e) => {
     setInitialSecond(second);
-    setStartTime(new Date());
+    setStartTime(moment());
     if (second <= 0) {
       return;
     }
@@ -47,7 +48,7 @@ const Timer = ({
         content: work,
         time: initialSecond - second,
         startTime: startTime,
-        endTime: new Date(),
+        endTime: moment(),
       });
       // 休憩中(0)の状態で終了したら待機(2)に移る
     } else if (workingStatus === 0) {

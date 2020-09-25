@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import "./Status.css";
 import startIcon from "../../icons/start.svg";
 import chillingIcon from "../../icons/chilling.svg";
@@ -13,6 +14,7 @@ const Status = ({
   setWorkingStatus,
   setIsDisableButton,
   setTimerId,
+  setStartTime,
   isDisableButton,
 }) => {
   const filterImage = (workingStatus) => {
@@ -46,6 +48,7 @@ const Status = ({
   const startTimer = (min, e) => {
     setSecond(min * 60);
     setInitialSecond(min * 60);
+    setStartTime(moment());
     e.preventDefault();
     // 休憩中(0)の状態で開始したら0のまま
     if (workingStatus === 1 || workingStatus === 2) {
