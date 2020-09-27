@@ -48,7 +48,7 @@ const Status = ({
   const startTimer = (min, e) => {
     setSecond(min * 60);
     setInitialSecond(min * 60);
-    setStartTime(moment());
+    setStartTime(moment().format("YYYY-MM-DD hh:mm:ss"));
     e.preventDefault();
     // 休憩中(0)の状態で開始したら0のまま
     if (workingStatus === 1 || workingStatus === 2) {

@@ -4,8 +4,8 @@ export const login = (credentials) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(() => {
-        dispatch({ type: "LOGIN_SUCCESS" });
+      .then((user) => {
+        dispatch({ type: "LOGIN_SUCCESS", uid: user.uid });
       })
       .catch((error) => {
         dispatch({ type: "LOGIN_ERROR", error: error.message });
@@ -19,8 +19,8 @@ export const signUp = (credentials) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
-      .then(() => {
-        dispatch({ type: "SIGNUP_SUCCESS" });
+      .then((user) => {
+        dispatch({ type: "SIGNUP_SUCCESS", uid: user.uid });
       })
       .catch((error) => {
         dispatch({ type: "SIGNUP_ERROR", error: error.message });
@@ -44,7 +44,9 @@ export const changeStatus = () => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
     firebase.auth().onAuthStateChanged((user) => {
-      user ? dispatch({ type: "IS_LOGIN" }) : dispatch({ type: "NOT_LOGIN" });
+      user
+        ? dispatch({ type: "IS_LOGIN", uid: user.uid })
+        : dispatch({ type: "NOT_LOGIN" });
     });
   };
 };

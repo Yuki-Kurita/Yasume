@@ -10,6 +10,7 @@ const user = (state = initState, action) => {
         ...state,
         authError: false,
         isLogin: true,
+        uid: action.uid,
       };
     case "LOGIN_ERROR":
       return {
@@ -22,6 +23,7 @@ const user = (state = initState, action) => {
         ...state,
         authError: false,
         isLogin: true,
+        uid: action.uid,
       };
     case "SIGNUP_ERROR":
       return {
@@ -33,11 +35,13 @@ const user = (state = initState, action) => {
       return {
         ...state,
         isLogin: false,
+        uid: null,
       };
     case "IS_LOGIN":
       return {
         ...state,
         isLogin: true,
+        uid: action.uid,
       };
     case "NOT_LOGIN":
       return {

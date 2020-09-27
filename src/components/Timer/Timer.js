@@ -19,10 +19,11 @@ const Timer = ({
   setStartTime,
   work,
   addWork,
+  uid,
 }) => {
   const startTimer = (e) => {
     setInitialSecond(second);
-    setStartTime(moment());
+    setStartTime(moment().format("YYYY-MM-DD hh:mm:ss"));
     if (second <= 0) {
       return;
     }
@@ -48,7 +49,8 @@ const Timer = ({
         content: work,
         time: initialSecond - second,
         startTime: startTime,
-        endTime: moment(),
+        endTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+        uid: uid,
       });
       // 休憩中(0)の状態で終了したら待機(2)に移る
     } else if (workingStatus === 0) {

@@ -7,7 +7,7 @@ import Navbar from "../Navbar/Navbar";
 import "./SingleRoom.css";
 import Grid from "@material-ui/core/Grid";
 
-const SingleRoom = ({ works, addWork }) => {
+const SingleRoom = ({ works, addWork, uid }) => {
   const [initialSecond, setInitialSecond] = useState(0);
   const [second, setSecond] = useState(0);
   const [timerId, setTimerId] = useState("");
@@ -30,7 +30,8 @@ const SingleRoom = ({ works, addWork }) => {
           content: work,
           time: initialSecond - second,
           startTime: startTime,
-          endTime: moment(),
+          endTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+          uid: uid,
         });
         setWorkingStatus(0);
         // 休憩中(0)の状態で終了したら待機(2)に移る
@@ -41,7 +42,16 @@ const SingleRoom = ({ works, addWork }) => {
       setTimerId("");
       setIsDisableButton(false);
     }
-  }, [addWork, initialSecond, second, startTime, timerId, work, workingStatus]);
+  }, [
+    addWork,
+    initialSecond,
+    second,
+    startTime,
+    timerId,
+    uid,
+    work,
+    workingStatus,
+  ]);
 
   return (
     <>

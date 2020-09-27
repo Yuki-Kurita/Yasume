@@ -4,8 +4,7 @@ import "./Today.scss";
 
 const Today = ({ works }) => {
   const timeToDisplay = (startTime, endTime) => {
-    const formatStyle = "HH:mm:ss";
-    return startTime.format(formatStyle) + " - " + endTime.format(formatStyle);
+    return startTime.split(" ")[1] + " - " + endTime.split(" ")[1];
   };
 
   const totalTimeToDisplay = (seconds) => {
@@ -33,7 +32,7 @@ const Today = ({ works }) => {
         <tbody>
           {works.map((work, i) => {
             return (
-              <tr>
+              <tr key={i}>
                 <td className="workContent">{work.content}</td>
                 <td className="workTime">
                   {timeToDisplay(work.startTime, work.endTime)}
