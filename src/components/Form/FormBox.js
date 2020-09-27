@@ -1,6 +1,6 @@
 import React from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import Login from "./Container/Login";
+import SignUp from "./Container/SignUp";
 
 const FormBox = ({ isDisplay, setIsDisplay, isLoginForm }) => {
   return (

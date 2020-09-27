@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FormBox from "../Form/FormBox";
-import * as firebase from "firebase";
-
 const Ul = styled.ul`
   list-style: none;
   display: flex;
@@ -30,10 +28,9 @@ const Ul = styled.ul`
   }
 `;
 
-const RightNav = ({ open }) => {
+const RightNav = ({ open, user }) => {
   const [isDisplay, setIsDisplay] = useState(false);
   const [isLoginForm, setIsLoginForm] = useState(false);
-  const user = firebase.auth().currentUser;
 
   const handleForm = (selectedActivitiy, e) => {
     setIsDisplay(true);
