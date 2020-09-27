@@ -12,6 +12,13 @@ const works = (state = [], action) => {
         },
       ];
     case "ADD_WORK_ERROR":
+      // TODO: ERROR処理
+      console.log(action.error);
+      return state;
+    case "FETCH_WORK":
+      return [...action.works];
+    case "FETCH_WORK_ERROR":
+      // TODO: ERROR処理
       console.log(action.error);
       return state;
     default:

@@ -1,16 +1,17 @@
 import { connect } from "react-redux";
 import Today from "../Today";
-// import { fetchWork } from "../../../store/works/action";
+import { fetchWork } from "../../../store/works/action";
 
 const mapStateToProps = (state) => ({
   works: state.works,
+  uid: state.user.uid,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // fetchWork: (work) => {
-    //   dispatch(fetchWork(work));
-    // },
+    fetchWork: (uid) => {
+      dispatch(fetchWork(uid));
+    },
   };
 };
 

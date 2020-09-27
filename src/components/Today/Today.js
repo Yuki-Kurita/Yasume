@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
 import "./Today.scss";
 
-const Today = ({ works }) => {
+const Today = ({ works, uid, fetchWork }) => {
+  useEffect(() => {
+    uid && fetchWork(uid);
+  }, [fetchWork, uid]);
+
   const timeToDisplay = (startTime, endTime) => {
     return startTime.split(" ")[1] + " - " + endTime.split(" ")[1];
   };
