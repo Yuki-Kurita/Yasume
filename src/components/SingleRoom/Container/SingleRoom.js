@@ -4,6 +4,7 @@ import { addWork } from "../../../store/works/action";
 
 const mapStateToProps = (state) => ({
   works: state,
+  uid: state.user.uid,
 });
 
 const mapDispatchToProps = (dispatch) => {

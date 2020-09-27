@@ -6,6 +6,7 @@ import { setTime } from "../../../store/timer/action";
 const mapStateToProps = (state) => ({
   works: state,
   timer: state.timer,
+  uid: state.user.uid,
 });
 
 const mapDispatchToProps = (dispatch) => {

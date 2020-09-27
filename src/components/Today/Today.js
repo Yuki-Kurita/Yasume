@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "./Today.scss";
 
-const Today = ({ works }) => {
+const Today = ({ works, user, fetchWork }) => {
+  const [sortWorks, setSortWorks] = useState(works);
+
+  useEffect(() => {
+    user.uid && fetchWork(user.uid);
+  }, [fetchWork, user]);
+
+  // 日付順に作業をsort
+  useEffect(() => {
+    setSortWorks(
+      works.sort((bef, aft) => {
+        return bef.endTime < aft.endTime ? -1 : 1;
+      })
+    );
+  }, [works, sortWorks]);
+
   const timeToDisplay = (startTime, endTime) => {
-    const formatStyle = "HH:mm:ss";
-    return startTime.format(formatStyle) + " - " + endTime.format(formatStyle);
+    return startTime.split(" ")[1] + " - " + endTime.split(" ")[1];
   };
 
   const totalTimeToDisplay = (seconds) => {
@@ -22,6 +36,11 @@ const Today = ({ works }) => {
         </span>
         Today
       </h3>
+      {!user.isLogin && (
+        <div className="signInRecommend">
+          ログインすると作業履歴を保存できます!
+        </div>
+      )}
       <table>
         <thead>
           <tr>
@@ -31,9 +50,9 @@ const Today = ({ works }) => {
           </tr>
         </thead>
         <tbody>
-          {works.map((work, i) => {
+          {sortWorks.map((work, i) => {
             return (
-              <tr>
+              <tr key={i}>
                 <td className="workContent">{work.content}</td>
                 <td className="workTime">
                   {timeToDisplay(work.startTime, work.endTime)}

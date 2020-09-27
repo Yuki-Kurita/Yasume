@@ -4,12 +4,13 @@ import { fetchWork } from "../../../store/works/action";
 
 const mapStateToProps = (state) => ({
   works: state.works,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchWork: (work) => {
-      dispatch(fetchWork(work));
+    fetchWork: (uid) => {
+      dispatch(fetchWork(uid));
     },
   };
 };

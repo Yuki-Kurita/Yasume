@@ -25,7 +25,6 @@ const Login = ({ history, setIsDisplay, login, user }) => {
   };
 
   useEffect(() => {
-    console.log(user);
     !user.authError &&
       user.isLogin &&
       history.push({ pathname: "/singleRoom" });
