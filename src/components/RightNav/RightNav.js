@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FormBox from "../Form/FormBox";
-import * as firebase from "firebase";
+import useReactRouter from "use-react-router";
 
 const Ul = styled.ul`
   list-style: none;
@@ -30,16 +30,25 @@ const Ul = styled.ul`
   }
 `;
 
-const RightNav = ({ open }) => {
+const RightNav = ({ open, logout, isLogin }) => {
   const [isDisplay, setIsDisplay] = useState(false);
   const [isLoginForm, setIsLoginForm] = useState(false);
-  const user = firebase.auth().currentUser;
+  const { history } = useReactRouter();
 
   const handleForm = (selectedActivitiy, e) => {
-    setIsDisplay(true);
-    selectedActivitiy === "login"
-      ? setIsLoginForm(true)
-      : setIsLoginForm(false);
+    if (selectedActivitiy === "logout") {
+      logout();
+      setIsDisplay(false);
+      history.push({
+        pathname: "/",
+      });
+    } else if (selectedActivitiy === "login") {
+      setIsDisplay(true);
+      setIsLoginForm(true);
+    } else {
+      setIsDisplay(true);
+      setIsLoginForm(false);
+    }
   };
 
   return (
@@ -51,7 +60,7 @@ const RightNav = ({ open }) => {
         <a href="#team">
           <li>みんなで始める</li>
         </a>
-        {!user && (
+        {!isLogin ? (
           <>
             <button onClick={(e) => handleForm("login", e)}>
               <li>Login</li>
@@ -60,14 +69,18 @@ const RightNav = ({ open }) => {
               <li>Sign Up</li>
             </button>
           </>
+        ) : (
+          <>
+            <li>アカウント</li>
+            <button onClick={(e) => handleForm("logout", e)}>
+              <li>Logout</li>
+            </button>
+          </>
         )}
-        {user && <li>アカウント</li>}
       </Ul>
-      <FormBox
-        isDisplay={isDisplay}
-        setIsDisplay={setIsDisplay}
-        isLoginForm={isLoginForm}
-      />
+      {isDisplay && (
+        <FormBox setIsDisplay={setIsDisplay} isLoginForm={isLoginForm} />
+      )}
     </>
   );
 };

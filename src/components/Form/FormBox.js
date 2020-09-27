@@ -1,19 +1,17 @@
 import React from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import Login from "./Container/Login";
+import SignUp from "./Container/SignUp";
 
-const FormBox = ({ isDisplay, setIsDisplay, isLoginForm }) => {
+const FormBox = ({ setIsDisplay, isLoginForm }) => {
   return (
     <>
-      {isDisplay && (
-        <>
-          {isLoginForm ? (
-            <Login setIsDisplay={setIsDisplay} />
-          ) : (
-            <SignUp setIsDisplay={setIsDisplay} />
-          )}
-        </>
-      )}
+      <>
+        {isLoginForm ? (
+          <Login setIsDisplay={setIsDisplay} />
+        ) : (
+          <SignUp setIsDisplay={setIsDisplay} />
+        )}
+      </>
     </>
   );
 };

@@ -1,19 +1,35 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../AuthProvider";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 import "./style.scss";
 import CancelIcon from "@material-ui/icons/Cancel";
 import loginIcon from "../../icons/login.svg";
 
-const Login = ({ history, setIsDisplay }) => {
-  const { loginUser } = useContext(AuthContext);
+const Login = ({ history, setIsDisplay, login, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [inputError, setInputError] = useState("");
 
   const handleSubmit = (history, event) => {
     event.preventDefault();
-    loginUser(email, password, history);
+    if (!email) {
+      setInputError("メールアドレスを入力してください");
+    } else if (!password) {
+      setInputError("パスワードを入力してください");
+    } else if (password.length < 8) {
+      setInputError("パスワードは8文字以上で入力してください");
+    } else {
+      setInputError("");
+      login({ email: email, password: password });
+      // click領域を切り替えるstateを更新したい
+    }
   };
+
+  useEffect(() => {
+    console.log(user);
+    !user.authError &&
+      user.isLogin &&
+      history.push({ pathname: "/singleRoom" });
+  }, [history, user]);
 
   return (
     <>
@@ -52,6 +68,10 @@ const Login = ({ history, setIsDisplay }) => {
           >
             Login
           </button>
+          {inputError && <div className="errorMessage">{inputError}</div>}
+          {user.authError && (
+            <div className="errorMessage">{user.authError}</div>
+          )}
         </form>
       </div>
     </>
