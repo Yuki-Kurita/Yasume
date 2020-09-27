@@ -3,7 +3,7 @@ import SignUp from "../SignUp";
 import { signUp } from "../../../store/user/action";
 
 const mapStateToProps = (state) => ({
-  authError: state.user.authError,
+  user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => {

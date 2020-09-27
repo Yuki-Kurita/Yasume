@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore, compose } from "redux";
 import rootReducer from "./store/rootReducer";
 import App from "./App";
+import Auth from "./components/Auth/Container/Auth";
 import thunk from "redux-thunk";
 import { reduxFirestore, getFirestore } from "redux-firestore";
 import { reactReduxFirebase, getFirebase } from "react-redux-firebase";
@@ -20,7 +21,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Auth>
+      <App />
+    </Auth>
   </Provider>,
   document.querySelector("#root")
 );

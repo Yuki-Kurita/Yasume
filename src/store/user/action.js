@@ -27,3 +27,24 @@ export const signUp = (credentials) => {
       });
   };
 };
+
+export const logout = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: "LOGOUT_SUCCESS" });
+      });
+  };
+};
+
+export const changeStatus = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+    firebase.auth().onAuthStateChanged((user) => {
+      user ? dispatch({ type: "IS_LOGIN" }) : dispatch({ type: "NOT_LOGIN" });
+    });
+  };
+};

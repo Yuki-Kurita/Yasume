@@ -4,7 +4,7 @@ import "./style.scss";
 import CancelIcon from "@material-ui/icons/Cancel";
 import loginIcon from "../../icons/login.svg";
 
-const Login = ({ history, setIsDisplay, login, authError }) => {
+const Login = ({ history, setIsDisplay, login, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputError, setInputError] = useState("");
@@ -25,8 +25,11 @@ const Login = ({ history, setIsDisplay, login, authError }) => {
   };
 
   useEffect(() => {
-    !authError && history.push({ pathname: "/singleRoom" });
-  }, [authError, history]);
+    console.log(user);
+    !user.authError &&
+      user.isLogin &&
+      history.push({ pathname: "/singleRoom" });
+  }, [history, user]);
 
   return (
     <>
@@ -66,7 +69,9 @@ const Login = ({ history, setIsDisplay, login, authError }) => {
             Login
           </button>
           {inputError && <div className="errorMessage">{inputError}</div>}
-          {authError && <div className="errorMessage">{authError}</div>}
+          {user.authError && (
+            <div className="errorMessage">{user.authError}</div>
+          )}
         </form>
       </div>
     </>
