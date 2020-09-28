@@ -21,6 +21,27 @@ const SingleRoom = ({ works, addWork, uid }) => {
   const [startTime, setStartTime] = useState("");
 
   useEffect(() => {
+    // Notification APIに対応しているか
+    if (!("Notification" in window)) {
+      console.log("this browser does not support notification");
+    } else {
+      // Notification.requestPermission()のプロミス版に対応しているか確認
+      if (checkNotificationPromise()) {
+        Notification.requestPermission().then((permission) => {
+          handlePermission(permission);
+        });
+      } else {
+        Notification.requestPermission(function (permission) {
+          handlePermission(permission);
+        });
+      }
+    }
+    Notification.requestPermission().then((result) => {
+      console.log(result);
+    });
+  }, []);
+
+  useEffect(() => {
     // -秒になったら終了
     if (second < 0 && timerId) {
       clearInterval(timerId);
@@ -34,6 +55,13 @@ const SingleRoom = ({ works, addWork, uid }) => {
           uid: uid,
         });
         setWorkingStatus(0);
+        // デスクトップ通知
+        if (window.Notification && Notification.permission === "granted") {
+          new Notification("Yasume", {
+            icon: "../../icnos/notification.png",
+            body: "お疲れまでした！休憩を取ってください！",
+          });
+        }
         // 休憩中(0)の状態で終了したら待機(2)に移る
       } else if (workingStatus === 0) {
         setWorkingStatus(2);
@@ -52,6 +80,25 @@ const SingleRoom = ({ works, addWork, uid }) => {
     work,
     workingStatus,
   ]);
+
+  // Notification APIがPromiseに対応してるか確認する
+  const checkNotificationPromise = () => {
+    try {
+      Notification.requestPermission().then();
+    } catch (e) {
+      return false;
+    }
+
+    return true;
+  };
+
+  // 通知の許可を求める関数
+  const handlePermission = (permission) => {
+    // Whatever the user answers, we make sure Chrome stores the information
+    if (!("permission" in Notification)) {
+      Notification.permission = permission;
+    }
+  };
 
   return (
     <>

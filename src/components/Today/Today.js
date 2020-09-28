@@ -12,9 +12,11 @@ const Today = ({ works, user, fetchWork }) => {
   // 日付順に作業をsort
   useEffect(() => {
     setSortWorks(
-      works.sort((bef, aft) => {
-        return bef.endTime < aft.endTime ? -1 : 1;
-      })
+      works
+        .sort((bef, aft) => {
+          return bef.endTime < aft.endTime ? -1 : 1;
+        })
+        .reverse()
     );
   }, [works, sortWorks]);
 
@@ -23,9 +25,11 @@ const Today = ({ works, user, fetchWork }) => {
   };
 
   const totalTimeToDisplay = (seconds) => {
-    const formatStyle = "HH:mm:ss";
-    const timestamp = moment({ second: seconds });
-    return timestamp.format(formatStyle);
+    const hour = (seconds / 3600) | 0;
+    const minute = ((seconds % 3600) / 60) | 0;
+    const second = seconds % 60;
+    const timestamp = moment({ second: second, minute: minute, hour: hour });
+    return timestamp.format("HH:mm:ss");
   };
 
   return (
