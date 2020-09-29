@@ -1,39 +1,79 @@
-table {
-  border-collapse: unset;
-  border-spacing: 0;
-  width: 100%;
-  tr {
+.rightContainer {
+  background: #ecf0f3;
+  border-radius: 20px;
+  height: 600px;
+  width: 90%;
+  margin: 2em auto;
+  padding: 20px 30px;
+  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  overflow-y: scroll;
+  position: relative;
+
+  .scrollButton {
+    position: sticky;
+    bottom: 0;
+    .upperArrow {
+      width: 2rem;
+    }
+  }
+
+  table {
+    border-collapse: unset;
+    border-spacing: 0;
     width: 100%;
-  }
-
-  .workContent {
-    width: 40%;
-  }
-  .workTime {
-    width: 30%;
-  }
-  .totalTime {
-    width: 30%;
-  }
-
-  tbody {
-    .workContent,
-    .workTime,
-    .totalTime {
-      padding: 0.7rem 0;
-      border-bottom: solid 0.5px rgb(175, 175, 175);
-      text-align: center;
+    tr {
+      width: 100%;
     }
 
-    .workTime,
-    .totalTime {
-      font-size: 0.9rem;
+    .workContent {
+      width: 40%;
     }
+    .workTime {
+      width: 30%;
+    }
+    .totalTime {
+      width: 30%;
+    }
+
+    tbody {
+      .workContent,
+      .workTime,
+      .totalTime {
+        padding: 0.7rem 0;
+        border-bottom: solid 0.5px rgb(175, 175, 175);
+        text-align: center;
+      }
+
+      .workTime,
+      .totalTime {
+        font-size: 0.9rem;
+      }
+
+      .workDay {
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding-top: 0.5rem;
+      }
+    }
+  }
+
+  .signInRecommend {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
   }
 }
 
-.signInRecommend {
-  text-align: center;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
+@media screen and (min-width: 480px) and (max-width: 960px) {
+  .rightContainer {
+    margin-top: 0;
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .rightContainer {
+    margin: 1rem 0;
+    width: 100%;
+  }
 }
