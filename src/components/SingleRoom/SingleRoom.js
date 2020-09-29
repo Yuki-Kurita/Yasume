@@ -48,7 +48,7 @@ const SingleRoom = ({ works, addWork, uid }) => {
           content: work,
           time: initialSecond - second,
           startTime: startTime,
-          endTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+          endTime: moment().format("YYYY-MM-DD HH:mm:ss"),
           uid: uid,
         });
         setWorkingStatus(0);
