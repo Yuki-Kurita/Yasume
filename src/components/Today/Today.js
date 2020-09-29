@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Element, Link } from "react-scroll";
 import moment from "moment";
 import "./Today.scss";
+import arrowIcon from "../../icons/up-arrow.svg";
 
 const Today = ({ works, user, fetchWork }) => {
   const [sortWorks, setSortWorks] = useState(works);
@@ -41,13 +43,19 @@ const Today = ({ works, user, fetchWork }) => {
   };
 
   return (
-    <>
-      <h3>
-        <span role="img" aria-label="Man Technologist">
-          👨‍💻
-        </span>
-        Today
-      </h3>
+    <Element
+      name="rightContainer"
+      id="containerElement"
+      className="rightContainer"
+    >
+      <Element name="top">
+        <h3>
+          <span role="img" aria-label="Man Technologist">
+            👨‍💻
+          </span>
+          Today
+        </h3>
+      </Element>
       {!user.isLogin && (
         <div className="signInRecommend">
           ログインすると作業履歴を保存できます!
@@ -84,7 +92,18 @@ const Today = ({ works, user, fetchWork }) => {
           })}
         </tbody>
       </table>
-    </>
+      <Link
+        activeClass="active"
+        to="top"
+        spy={true}
+        smooth={true}
+        containerId="containerElement"
+        className="scrollButton"
+        duration={250}
+      >
+        <img className="upperArrow" src={arrowIcon} alt="arrow" />
+      </Link>
+    </Element>
   );
 };
 

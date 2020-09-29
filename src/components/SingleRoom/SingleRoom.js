@@ -139,9 +139,7 @@ const SingleRoom = ({ works, addWork, uid }) => {
           </div>
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
-          <div className="rightContainer">
-            <Today />
-          </div>
+          <Today />
         </Grid>
       </Grid>
     </>
