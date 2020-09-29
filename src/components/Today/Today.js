@@ -32,6 +32,14 @@ const Today = ({ works, user, fetchWork }) => {
     return timestamp.format("HH:mm:ss");
   };
 
+  const dayToDisplay = (index) => {
+    if (index === 0) return sortWorks[index].startTime.split(" ")[0];
+    return sortWorks[index].startTime.split(" ")[0] ===
+      sortWorks[index - 1].startTime.split(" ")[0]
+      ? false
+      : sortWorks[index].startTime.split(" ")[0];
+  };
+
   return (
     <>
       <h3>
@@ -56,13 +64,22 @@ const Today = ({ works, user, fetchWork }) => {
         <tbody>
           {sortWorks.map((work, i) => {
             return (
-              <tr key={i}>
-                <td className="workContent">{work.content}</td>
-                <td className="workTime">
-                  {timeToDisplay(work.startTime, work.endTime)}
-                </td>
-                <td className="totalTime">{totalTimeToDisplay(work.time)}</td>
-              </tr>
+              <>
+                {dayToDisplay(i) && (
+                  <tr key={dayToDisplay(i)}>
+                    <td className="workDay" colSpan="3">
+                      {dayToDisplay(i)}
+                    </td>
+                  </tr>
+                )}
+                <tr key={i}>
+                  <td className="workContent">{work.content}</td>
+                  <td className="workTime">
+                    {timeToDisplay(work.startTime, work.endTime)}
+                  </td>
+                  <td className="totalTime">{totalTimeToDisplay(work.time)}</td>
+                </tr>
+              </>
             );
           })}
         </tbody>

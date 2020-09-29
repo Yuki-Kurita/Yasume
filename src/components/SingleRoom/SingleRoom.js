@@ -36,9 +36,6 @@ const SingleRoom = ({ works, addWork, uid }) => {
         });
       }
     }
-    Notification.requestPermission().then((result) => {
-      console.log(result);
-    });
   }, []);
 
   useEffect(() => {
@@ -65,6 +62,12 @@ const SingleRoom = ({ works, addWork, uid }) => {
         // 休憩中(0)の状態で終了したら待機(2)に移る
       } else if (workingStatus === 0) {
         setWorkingStatus(2);
+        if (window.Notification && Notification.permission === "granted") {
+          new Notification("Yasume", {
+            icon: "../../icnos/notification.png",
+            body: "休憩時間が終わりました！準備ができたら作業を始めましょう！",
+          });
+        }
       }
       setSecond(0);
       setTimerId("");
