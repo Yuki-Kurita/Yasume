@@ -23,7 +23,7 @@ const Timer = ({
 }) => {
   const startTimer = (e) => {
     setInitialSecond(second);
-    setStartTime(moment().format("YYYY-MM-DD hh:mm:ss"));
+    setStartTime(moment().format("YYYY-MM-DD HH:mm:ss"));
     if (second <= 0) {
       return;
     }
@@ -49,7 +49,7 @@ const Timer = ({
         content: work,
         time: initialSecond - second,
         startTime: startTime,
-        endTime: moment().format("YYYY-MM-DD hh:mm:ss"),
+        endTime: moment().format("YYYY-MM-DD HH:mm:ss"),
         uid: uid,
       });
       // 休憩中(0)の状態で終了したら待機(2)に移る
@@ -61,7 +61,7 @@ const Timer = ({
     setSecond(0);
   };
 
-  // second -> hh:mm:ss形式に変更
+  // second -> HH:mm:ss形式に変更
   const formatTimer = (inputSecond) => {
     //時間計算
     const hour = Math.floor(inputSecond / 60 / 60);
