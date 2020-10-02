@@ -45,10 +45,11 @@ const Status = ({
     setWork(e.target.value);
   };
 
-  const startTimer = (min, e) => {
-    setSecond(min * 60);
-    setInitialSecond(min * 60);
-    setStartTime(moment().format("YYYY-MM-DD HH:mm:ss"));
+  const startTimer = (second, e) => {
+    const startMoment = moment();
+    setSecond(second);
+    setInitialSecond(second);
+    setStartTime(startMoment);
     e.preventDefault();
     // 休憩中(0)の状態で開始したら0のまま
     if (workingStatus === 1 || workingStatus === 2) {
@@ -57,7 +58,7 @@ const Status = ({
     setIsDisableButton(true);
     setTimerId(
       setInterval(() => {
-        setSecond((second) => second - 1);
+        setSecond(second - moment().diff(startMoment, "seconds"));
       }, 1000)
     );
   };
@@ -79,7 +80,7 @@ const Status = ({
             className={`tenMinuteBreak ${
               isDisableButton ? "disable" : "enable"
             }`}
-            onClick={(e) => startTimer(10, e)}
+            onClick={(e) => startTimer(10 * 60, e)}
             disabled={isDisableButton}
           >
             10分休憩する
@@ -88,7 +89,7 @@ const Status = ({
             className={`fiveMinuteBreak ${
               isDisableButton ? "disable" : "enable"
             }`}
-            onClick={(e) => startTimer(5, e)}
+            onClick={(e) => startTimer(5 * 60, e)}
             disabled={isDisableButton}
           >
             5分休憩する
@@ -106,10 +107,16 @@ const Status = ({
       )}
       {workingStatus === 2 && (
         <div className="workingSelectContainer">
-          <button className="continueButton" onClick={(e) => startTimer(25, e)}>
+          <button
+            className="continueButton"
+            onClick={(e) => startTimer(25 * 60, e)}
+          >
             25分作業する
           </button>
-          <button className="cancelButton" onClick={(e) => startTimer(60, e)}>
+          <button
+            className="cancelButton"
+            onClick={(e) => startTimer(60 * 60, e)}
+          >
             60分作業する
           </button>
         </div>
