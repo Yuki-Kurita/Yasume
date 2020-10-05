@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import "./Timer.css";
+import useNotification from "../CustomHooks/useNotification";
 import Status from "../Status/Status";
+import Button from "./Button";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import StopIcon from "@material-ui/icons/Stop";
 
@@ -10,63 +12,42 @@ const Timer = ({ works, addWork, uid }) => {
   const [second, setSecond] = useState(0);
   const [timerId, setTimerId] = useState("");
   // 0: タイマー停止, 1: タイマー開始, 空: 準備中
-  const [workingStatus, setWorkingStatus] = useState(2);
+  const [workingStatus, setWorkingStatus] = useState({
+    nextAction: "ready",
+    isStart: false,
+  });
   // timerのボタンがdisabledか否か
   const [isDisableButton, setIsDisableButton] = useState(false);
   // 今してること
   const [work, setWork] = useState("");
   // 開始時間と終了時間
   const [startTime, setStartTime] = useState("");
+  console.log(workingStatus);
 
-  useEffect(() => {
-    // Notification APIに対応しているか
-    if (!("Notification" in window)) {
-      console.log("this browser does not support notification");
-    } else {
-      // Notification.requestPermission()のプロミス版に対応しているか確認
-      if (checkNotificationPromise()) {
-        Notification.requestPermission().then((permission) => {
-          handlePermission(permission);
-        });
-      } else {
-        Notification.requestPermission(function (permission) {
-          handlePermission(permission);
-        });
-      }
-    }
-  }, []);
+  useNotification(workingStatus, second, timerId);
 
   useEffect(() => {
     // -秒になったら終了
     if (second < 0 && timerId) {
+      const timerFinishedAction = () => {
+        // 作業中(1)の状態で終了したら休憩(0)に移り、作業記録を保存
+        if (workingStatus.nextAction === "work") {
+          addWork({
+            content: work,
+            time: initialSecond - second,
+            startTime: startTime.format("YYYY-MM-DD HH:mm:ss"),
+            endTime: moment().format("YYYY-MM-DD HH:mm:ss"),
+            uid: uid,
+          });
+          setWorkingStatus({ nextAction: "break", isStart: false });
+          // 休憩中(0)の状態で終了したら待機(2)に移る
+        } else if (workingStatus.nextAction === "break") {
+          setWorkingStatus({ nextAction: "ready", isStart: false });
+        }
+      };
+
       clearInterval(timerId);
-      // 作業中(1)の状態で終了したら休憩(0)に移り、作業記録を保存
-      if (workingStatus === 1) {
-        addWork({
-          content: work,
-          time: initialSecond - second,
-          startTime: startTime.format("YYYY-MM-DD HH:mm:ss"),
-          endTime: moment().format("YYYY-MM-DD HH:mm:ss"),
-          uid: uid,
-        });
-        setWorkingStatus(0);
-        // デスクトップ通知
-        if (window.Notification && Notification.permission === "granted") {
-          new Notification("Yasume", {
-            icon: "../../icnos/notification.png",
-            body: "お疲れまでした！休憩を取ってください！",
-          });
-        }
-        // 休憩中(0)の状態で終了したら待機(2)に移る
-      } else if (workingStatus === 0) {
-        setWorkingStatus(2);
-        if (window.Notification && Notification.permission === "granted") {
-          new Notification("Yasume", {
-            icon: "../../icnos/notification.png",
-            body: "休憩時間が終わりました！準備ができたら作業を始めましょう！",
-          });
-        }
-      }
+      timerFinishedAction();
       setSecond(0);
       setTimerId("");
       setIsDisableButton(false);
@@ -82,25 +63,6 @@ const Timer = ({ works, addWork, uid }) => {
     workingStatus,
   ]);
 
-  // Notification APIがPromiseに対応してるか確認する
-  const checkNotificationPromise = () => {
-    try {
-      Notification.requestPermission().then();
-    } catch (e) {
-      return false;
-    }
-
-    return true;
-  };
-
-  // 通知の許可を求める関数
-  const handlePermission = (permission) => {
-    // Whatever the user answers, we make sure Chrome stores the information
-    if (!("permission" in Notification)) {
-      Notification.permission = permission;
-    }
-  };
-
   const startTimer = (e) => {
     const startMoment = moment();
     setInitialSecond(second);
@@ -109,9 +71,14 @@ const Timer = ({ works, addWork, uid }) => {
       return;
     }
     e.preventDefault();
-    // 休憩中(0)の状態で開始したら0のまま
-    if (workingStatus === 1 || workingStatus === 2) {
-      setWorkingStatus(1);
+    // 休憩中の状態で開始したらそのまま
+    if (
+      workingStatus.nextAction === "work" ||
+      workingStatus.nextAction === "ready"
+    ) {
+      setWorkingStatus({ nextAction: "work", isStart: true });
+    } else {
+      setWorkingStatus({ nextAction: "break", isStart: true });
     }
     setIsDisableButton(true);
     // setInterval内はsecond stateの変更を検知しない
@@ -123,9 +90,9 @@ const Timer = ({ works, addWork, uid }) => {
 
   const resetTimer = (e) => {
     e.preventDefault();
-    // 作業中(1)の状態で終了したら休憩(0)に移り、作業内容・時間を記録
-    if (workingStatus === 1) {
-      setWorkingStatus(0);
+    // 作業中の状態(次が休憩)で終了したら休憩(に移り、作業内容・時間を記録
+    if (workingStatus.nextAction === "work") {
+      setWorkingStatus({ nextAction: "break", isStart: false });
       addWork({
         content: work,
         time: initialSecond - second,
@@ -133,9 +100,9 @@ const Timer = ({ works, addWork, uid }) => {
         endTime: moment().format("YYYY-MM-DD HH:mm:ss"),
         uid: uid,
       });
-      // 休憩中(0)の状態で終了したら待機(2)に移る
-    } else if (workingStatus === 0) {
-      setWorkingStatus(2);
+      // 休憩中の状態(次が待機)で終了したら待機(終了状態)に移る
+    } else if (workingStatus.nextAction === "break") {
+      setWorkingStatus({ nextAction: "ready", isStart: false });
     }
     setIsDisableButton(false);
     clearInterval(timerId);
@@ -171,40 +138,41 @@ const Timer = ({ works, addWork, uid }) => {
     <>
       <div className="timerContainer">
         <h3>
-          {workingStatus === 1 || workingStatus === 2
+          {workingStatus.nextAction === "work" ||
+          workingStatus.nextAction === "ready"
             ? "⏱ Work time"
             : "☕️ Break time"}
         </h3>
         <div className="timerDisplay">{formatTimer(second)}</div>
         <div className="timerButton">
-          <button
-            onClick={(e) => setSecond((second) => second + 3600)}
-            className={isDisableButton ? "disable" : "enable"}
-            disabled={isDisableButton}
+          <Button
+            second={second}
+            setSecond={setSecond}
+            isDisableButton={isDisableButton}
           >
-            +1H
-          </button>
-          <button
-            onClick={(e) => setSecond((second) => second + 600)}
-            className={isDisableButton ? "disable" : "enable"}
-            disabled={isDisableButton}
+            1H
+          </Button>
+          <Button
+            second={second}
+            setSecond={setSecond}
+            isDisableButton={isDisableButton}
           >
-            +10M
-          </button>
-          <button
-            onClick={(e) => setSecond((second) => second + 60)}
-            className={isDisableButton ? "disable" : "enable"}
-            disabled={isDisableButton}
+            10M
+          </Button>
+          <Button
+            second={second}
+            setSecond={setSecond}
+            isDisableButton={isDisableButton}
           >
-            +1M
-          </button>
-          <button
-            onClick={(e) => setSecond((second) => second + 10)}
-            className={isDisableButton ? "disable" : "enable"}
-            disabled={isDisableButton}
+            1M
+          </Button>
+          <Button
+            second={second}
+            setSecond={setSecond}
+            isDisableButton={isDisableButton}
           >
-            +10s
-          </button>
+            10s
+          </Button>
           <button
             onClick={(e) => startTimer(e)}
             className={isDisableButton ? "disable" : "enable"}

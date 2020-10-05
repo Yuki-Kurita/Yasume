@@ -17,20 +17,20 @@ const Status = ({
   setStartTime,
   isDisableButton,
 }) => {
-  const filterImage = (workingStatus) => {
-    if (workingStatus === 0) {
+  const filterImage = (nextAction) => {
+    if (nextAction === "break") {
       return chillingIcon;
-    } else if (workingStatus === 1) {
+    } else if (nextAction === "work") {
       return multitaskingIcon;
     } else {
       return startIcon;
     }
   };
 
-  const fileterText = (workingStatus) => {
-    if (workingStatus === 0) {
+  const filterText = (nextAction) => {
+    if (nextAction === "break") {
       return "お疲れ様でした！休憩しましょう";
-    } else if (workingStatus === 1) {
+    } else if (nextAction === "work") {
       if (work) {
         return "休憩まで頑張りましょう！";
       } else {
@@ -51,30 +51,35 @@ const Status = ({
     setInitialSecond(second);
     setStartTime(startMoment);
     e.preventDefault();
-    // 休憩中(0)の状態で開始したら0のまま
-    if (workingStatus === 1 || workingStatus === 2) {
-      setWorkingStatus(1);
+    // 休憩中の状態で開始したらそのまま
+    if (
+      workingStatus.nextAction === "work" ||
+      workingStatus.nextAction === "ready"
+    ) {
+      setWorkingStatus({ nextAction: "work", isStart: true });
+    } else {
+      setWorkingStatus({ nextAction: "break", isStart: true });
     }
     setIsDisableButton(true);
-    setTimerId(
-      setInterval(() => {
-        setSecond(second - moment().diff(startMoment, "seconds"));
-      }, 1000)
-    );
+    // setInterval内はsecond stateの変更を検知しない
+    const id = setInterval(() => {
+      setSecond(second - moment().diff(startMoment, "seconds"));
+    }, 1000);
+    setTimerId(id);
   };
 
   return (
     <div className="statusContainer">
       <div className="workingContent">
-        <div className="statusText">{fileterText(workingStatus)}</div>
+        <div className="statusText">{filterText(workingStatus.nextAction)}</div>
         <img
           className="statusImage"
           alt="Working status"
-          src={filterImage(workingStatus)}
+          src={filterImage(workingStatus.nextAction)}
         />
       </div>
       {/* workingStatusの値によって状態を変える */}
-      {workingStatus === 0 && (
+      {workingStatus.nextAction === "break" && (
         <div className="breakTimeSelectContainer">
           <button
             className={`tenMinuteBreak ${
@@ -96,7 +101,7 @@ const Status = ({
           </button>
         </div>
       )}
-      {workingStatus === 1 && (
+      {workingStatus.nextAction === "work" && (
         <input
           className="workingContentInput"
           type="text"
@@ -105,7 +110,7 @@ const Status = ({
           placeholder="今何をしていますか？"
         />
       )}
-      {workingStatus === 2 && (
+      {workingStatus.nextAction === "ready" && (
         <div className="workingSelectContainer">
           <button
             className="continueButton"
