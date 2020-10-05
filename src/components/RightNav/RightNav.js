@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import FormBox from "../Form/FormBox";
+import Login from "../Form/Container/Login";
+import SignUp from "../Form/Container/SignUp";
 import useReactRouter from "use-react-router";
 
 const Ul = styled.ul`
@@ -30,24 +31,27 @@ const Ul = styled.ul`
   }
 `;
 
-const RightNav = ({ open, logout, isLogin }) => {
-  const [isDisplay, setIsDisplay] = useState(false);
-  const [isLoginForm, setIsLoginForm] = useState(false);
+const RightNav = ({
+  open,
+  logout,
+  isLogin,
+  isLoginForm,
+  isDisplay,
+  setForm,
+}) => {
   const { history } = useReactRouter();
 
   const handleForm = (selectedActivitiy, e) => {
     if (selectedActivitiy === "logout") {
       logout();
-      setIsDisplay(false);
+      setForm({ isLoginForm: true, isDisplay: false });
       history.push({
         pathname: "/",
       });
     } else if (selectedActivitiy === "login") {
-      setIsDisplay(true);
-      setIsLoginForm(true);
+      setForm({ isLoginForm: true, isDisplay: true });
     } else {
-      setIsDisplay(true);
-      setIsLoginForm(false);
+      setForm({ isLoginForm: false, isDisplay: true });
     }
   };
 
@@ -78,9 +82,7 @@ const RightNav = ({ open, logout, isLogin }) => {
           </>
         )}
       </Ul>
-      {isDisplay && (
-        <FormBox setIsDisplay={setIsDisplay} isLoginForm={isLoginForm} />
-      )}
+      {isDisplay && (isLoginForm ? <Login /> : <SignUp />)}
     </>
   );
 };

@@ -22,7 +22,6 @@ const Timer = ({ works, addWork, uid }) => {
   const [work, setWork] = useState("");
   // 開始時間と終了時間
   const [startTime, setStartTime] = useState("");
-  console.log(workingStatus);
 
   useNotification(workingStatus, second, timerId);
 
