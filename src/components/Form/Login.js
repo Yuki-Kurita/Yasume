@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router";
 import "./style.scss";
 import CancelIcon from "@material-ui/icons/Cancel";
 import loginIcon from "../../icons/login.svg";
 
-const Login = ({ history, setIsDisplay, login, user }) => {
+const Login = ({ history, login, setForm, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [inputError, setInputError] = useState("");
@@ -20,21 +20,22 @@ const Login = ({ history, setIsDisplay, login, user }) => {
     } else {
       setInputError("");
       login({ email: email, password: password });
-      // click領域を切り替えるstateを更新したい
+      setForm({ isLoginForm: true, isDisplay: false });
+      history.push({ pathname: "/singleRoom" });
     }
   };
 
-  useEffect(() => {
-    !user.authError &&
-      user.isLogin &&
-      history.push({ pathname: "/singleRoom" });
-  }, [history, user]);
-
   return (
     <>
-      <div className="formOuterContainer" onClick={() => setIsDisplay(false)} />
+      <div
+        className="formOuterContainer"
+        onClick={() => setForm({ isLoginForm: true, isDisplay: false })}
+      />
       <div className="formContainer">
-        <button className="closeButton" onClick={() => setIsDisplay(false)}>
+        <button
+          className="closeButton"
+          onClick={() => setForm({ isLoginForm: true, isDisplay: false })}
+        >
           <CancelIcon />
         </button>
         <form className="formBox">
