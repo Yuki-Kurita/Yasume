@@ -14,12 +14,12 @@ footer {
   box-shadow: 8px 8px 20px #25924f;
 }
 
-ul {
+footer ul {
   display: flex;
   justify-content: space-around;
 }
 
-a {
+footer ul a {
   color: #fff;
   font-weight: 600;
 }
