@@ -7,9 +7,7 @@ const Header = () => (
   <div className="header">
     <Navbar />
     <div className="message">リモートワークでもしっかりと休憩を</div>
-    <div className="subMessage">
-      チームで活用する休憩時間管理に特化したツール
-    </div>
+    <div className="subMessage">休憩と作業の時間管理に特化したツール</div>
     <div className="headerImageContainer">
       <img className="headerImage" src={coffeeBreakImage} alt="break_image" />
     </div>

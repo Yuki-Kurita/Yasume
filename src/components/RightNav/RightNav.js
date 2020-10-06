@@ -59,11 +59,8 @@ const RightNav = ({
     <>
       <Ul open={open}>
         <Link to="/singleRoom">
-          <li>一人で始める</li>
+          <li>Go to app</li>
         </Link>
-        <a href="#team">
-          <li>みんなで始める</li>
-        </a>
         {!isLogin ? (
           <>
             <button onClick={(e) => handleForm("login", e)}>

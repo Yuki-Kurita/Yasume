@@ -1,14 +1,18 @@
 .step {
   color: #00473e;
+  margin: 0 auto;
+  height: 15rem;
 }
 
 .stepDetail {
   display: flex;
   align-items: center;
+  height: 10rem;
 }
 
 .step h3 {
   text-indent: 3rem;
+  margin: 0.3rem 0 0.3rem 0;
 }
 
 .stepImage {

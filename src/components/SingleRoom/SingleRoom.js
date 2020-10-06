@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import moment from "moment";
+import React from "react";
 import Timer from "../Timer/Container/Timer";
 import Today from "../Today/Container/Today";
 import Navbar from "../Navbar/Navbar";

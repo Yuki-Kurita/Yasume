@@ -7,7 +7,7 @@ const Step = ({ image, no, explain }) => {
       <h3>STEP{no}</h3>
       <div className="stepDetail">
         <img className="stepImage" src={image} alt={`step${no}`} />
-        <span className="stepExplain">{explain}</span>
+        <div className="stepExplain">{explain}</div>
       </div>
     </div>
   );
